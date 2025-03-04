@@ -9468,12 +9468,6 @@ end
 
 # Skipping MacroDefinition: IGRAPH_DEPRECATED __attribute__ ( ( __deprecated__ ) )
 
-const IGRAPH_DEPRECATED_EXPORT = IGRAPH_EXPORT(IGRAPH_DEPRECATED)
-
-const IGRAPH_DEPRECATED_NO_EXPORT = IGRAPH_NO_EXPORT(IGRAPH_DEPRECATED)
-
-const IGRAPH_PRIVATE_EXPORT = IGRAPH_EXPORT
-
 const IGRAPH_VERSION = "0.10.15"
 
 const IGRAPH_VERSION_MAJOR = 0
@@ -9484,65 +9478,21 @@ const IGRAPH_VERSION_PATCH = 15
 
 const IGRAPH_VERSION_PRERELEASE = "cmake-experimental"
 
-const igraph_Calloc = IGRAPH_CALLOC
-
-const igraph_Realloc = IGRAPH_REALLOC
-
-const igraph_Free = IGRAPH_FREE
-
 const IGRAPH_INTEGER_SIZE = 64
 
 # Skipping MacroDefinition: IGRAPH_DEPRECATED_ENUMVAL __attribute__ ( ( deprecated ) )
 
-const IGRAPH_BOOL_TYPE = bool
-
 # Skipping MacroDefinition: IGRAPH_FUNCATTR_NORETURN __attribute__ ( ( __noreturn__ ) )
-
-const IGRAPH_FILE_BASENAME = __FILE__
 
 const IGRAPH_FINALLY_STACK_EMPTY = IGRAPH_FINALLY_STACK_SIZE() == 0
 
-const GCC_VERSION_MAJOR = __GNUC__
-
-const IGRAPH_PRId = PRId64
-
-const IGRAPH_PRIu = PRIu64
-
-const IGRAPH_INTEGER_MAX = INT64_MAX
-
-const IGRAPH_INTEGER_MIN = INT64_MIN
-
-const IGRAPH_UINT_MAX = UINT64_MAX
-
-const IGRAPH_UINT_MIN = UINT64_MIN
-
-const IGRAPH_VCOUNT_MAX = IGRAPH_INTEGER_MAX - 1
-
-const IGRAPH_ECOUNT_MAX = IGRAPH_INTEGER_MAX ÷ 2
-
-const IGRAPH_INFINITY = Float64(INFINITY)
-
-const IGRAPH_POSINFINITY = IGRAPH_INFINITY
-
-const IGRAPH_NEGINFINITY = -IGRAPH_INFINITY
-
-const IGRAPH_NAN = Float64(NAN)
-
 # Skipping MacroDefinition: CONCAT2x ( a , b ) a ## _ ## b
-
-const CONCAT2 = (((a, b))(CONCAT2x))(a, b)
 
 # Skipping MacroDefinition: CONCAT3x ( a , b , c ) a ## _ ## b ## _ ## c
 
-const CONCAT3 = (((a, b, c))(CONCAT3x))(a, b, c)
-
 # Skipping MacroDefinition: CONCAT4x ( a , b , c , d ) a ## _ ## b ## _ ## c ## _ ## d
 
-const CONCAT4 = (((a, b, c, d))(CONCAT4x))(a, b, c, d)
-
 # Skipping MacroDefinition: CONCAT5x ( a , b , c , d , e ) a ## _ ## b ## _ ## c ## _ ## d ## _ ## e
-
-const CONCAT5 = (((a, b, c, d, e))(CONCAT5x))(a, b, c, d, e)
 
 const BASE = igraph_real_t
 
@@ -9552,53 +9502,15 @@ const BASE_MATRIX = igraph_matrix_t
 
 const OUT_FORMAT = "%g"
 
-const PRINTFUNC = (val(igraph_real_printf))(val)
-
-const SNPRINTFUNC = (((str, size, val))(igraph_real_snprintf))(str, size, val)
-
-const FPRINTFUNC_ALIGNED = (((file, width, val))(igraph_real_fprintf_aligned))(file, width, val)
-
-const FPRINTFUNC = (((file, val))(igraph_real_fprintf))(file, val)
-
 const ZERO = 0.0
 
 const ONE = 1.0
 
 const MULTIPLICITY = 1
 
-const FUNCTION = (((a, c))(CONCAT2))(a, c)
-
-const TYPE = (a(CONCAT2))(a, t)
-
 const NOTORDERED = 1
 
 const NOABS = 1
-
-const EQ = ((a, b))(a && b || !a && !b)
-
-const SUM = ((a, b, c))(a = igraph_complex_add(b, c))
-
-const DIFF = ((a, b, c))(a = igraph_complex_sub(b, c))
-
-const PROD = ((a, b, c))(a = igraph_complex_mul(b, c))
-
-const DIV = ((a, b, c))(a = igraph_complex_div(b, c))
-
-const SQ = (a(IGRAPH_REAL))(igraph_complex_mul(a, a))
-
-const IGRAPH_VECTOR_NULL = {0, 0, 0}
-
-const IGRAPH_MATRIX_NULL = {IGRAPH_VECTOR_NULL, 0, 0}
-
-const IGRAPH_POPCOUNT = IGRAPH_I_POPCOUNT64
-
-const IGRAPH_CLZ = IGRAPH_I_CLZ64
-
-const IGRAPH_CTZ = IGRAPH_I_CTZ64
-
-const IGRAPH_DQUEUE_NULL = {0, 0, 0, 0}
-
-const IGRAPH_STACK_NULL = {0, 0, 0}
 
 const HEAPMORE = (>)
 
@@ -9608,17 +9520,7 @@ const HEAPLESS = (<)
 
 const HEAPLESSEQ = (<=)
 
-const IGRAPH_HEAP_NULL = {0, 0, 0}
-
-const IGRAPH_STRVECTOR_NULL = {0, 0, 0}
-
-const INTERNAL_FUNCTION = (c(CONCAT2x))(igraph_i_vector_list, c)
-
 const ITEM_TYPE = BASE_VECTOR
-
-const IGRAPH_VECTOR_PTR_NULL = {0, 0, 0, 0}
-
-const EXTRA_TYPE_FIELDS = $(Expr(:toplevel, :(igraph_bool_t(directed))))
 
 # Skipping MacroDefinition: IGRAPH_NO_MORE_ATTRIBUTES ( ( const char * ) 0 )
 
