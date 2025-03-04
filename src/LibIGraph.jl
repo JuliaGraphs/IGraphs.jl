@@ -517,7 +517,7 @@ end
 
 mutable struct igraph_i_property_cache_t end
 
-struct igraph_s
+mutable struct igraph_s
     n::igraph_integer_t
     directed::igraph_bool_t
     from::igraph_vector_int_t
@@ -528,6 +528,7 @@ struct igraph_s
     is::igraph_vector_int_t
     attr::Ptr{Cvoid}
     cache::Ptr{igraph_i_property_cache_t}
+    igraph_s() = new()
 end
 
 const igraph_t = igraph_s
