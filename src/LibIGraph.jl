@@ -137,10 +137,11 @@ struct igraph_vector_char_t
     _end::Ptr{Cchar}
 end
 
-struct igraph_matrix_char_t
+mutable struct igraph_matrix_char_t
     data::igraph_vector_char_t
     nrow::igraph_integer_t
     ncol::igraph_integer_t
+    igraph_matrix_char_t() = new()
 end
 
 const igraph_bool_t = Bool
@@ -151,10 +152,11 @@ struct igraph_vector_bool_t
     _end::Ptr{igraph_bool_t}
 end
 
-struct igraph_matrix_bool_t
+mutable struct igraph_matrix_bool_t
     data::igraph_vector_bool_t
     nrow::igraph_integer_t
     ncol::igraph_integer_t
+    igraph_matrix_bool_t() = new()
 end
 
 struct igraph_vector_int_t
@@ -163,10 +165,11 @@ struct igraph_vector_int_t
     _end::Ptr{igraph_integer_t}
 end
 
-struct igraph_matrix_int_t
+mutable struct igraph_matrix_int_t
     data::igraph_vector_int_t
     nrow::igraph_integer_t
     ncol::igraph_integer_t
+    igraph_matrix_int_t() = new()
 end
 
 struct igraph_complex_t
@@ -266,10 +269,11 @@ struct igraph_rng_type_t
     get_pois::Ptr{Cvoid}
 end
 
-struct igraph_rng_t
+mutable struct igraph_rng_t
     type::Ptr{igraph_rng_type_t}
     state::Ptr{Cvoid}
     is_seeded::igraph_bool_t
+    igraph_rng_t() = new()
 end
 
 function igraph_rng_default()
@@ -346,12 +350,13 @@ function igraph_matrix_int_destroy(m)
     ccall((:igraph_matrix_int_destroy, libigraph), Cvoid, (Ptr{igraph_matrix_int_t},), m)
 end
 
-struct igraph_array3_t
+mutable struct igraph_array3_t
     data::igraph_vector_t
     n1::igraph_integer_t
     n2::igraph_integer_t
     n3::igraph_integer_t
     n1n2::igraph_integer_t
+    igraph_array3_t() = new()
 end
 
 function igraph_array3_init(a, n1, n2, n3)
@@ -376,11 +381,12 @@ function igraph_bitset_destroy(bitset)
     ccall((:igraph_bitset_destroy, libigraph), Cvoid, (Ptr{igraph_bitset_t},), bitset)
 end
 
-struct igraph_dqueue_t
+mutable struct igraph_dqueue_t
     _begin::Ptr{igraph_real_t}
     _end::Ptr{igraph_real_t}
     stor_begin::Ptr{igraph_real_t}
     stor_end::Ptr{igraph_real_t}
+    igraph_dqueue_t() = new()
 end
 
 function igraph_dqueue_init(q, capacity)
@@ -391,11 +397,12 @@ function igraph_dqueue_destroy(q)
     ccall((:igraph_dqueue_destroy, libigraph), Cvoid, (Ptr{igraph_dqueue_t},), q)
 end
 
-struct igraph_dqueue_int_t
+mutable struct igraph_dqueue_int_t
     _begin::Ptr{igraph_integer_t}
     _end::Ptr{igraph_integer_t}
     stor_begin::Ptr{igraph_integer_t}
     stor_end::Ptr{igraph_integer_t}
+    igraph_dqueue_int_t() = new()
 end
 
 function igraph_dqueue_int_init(q, capacity)
@@ -406,10 +413,11 @@ function igraph_dqueue_int_destroy(q)
     ccall((:igraph_dqueue_int_destroy, libigraph), Cvoid, (Ptr{igraph_dqueue_int_t},), q)
 end
 
-struct igraph_stack_t
+mutable struct igraph_stack_t
     stor_begin::Ptr{igraph_real_t}
     stor_end::Ptr{igraph_real_t}
     _end::Ptr{igraph_real_t}
+    igraph_stack_t() = new()
 end
 
 function igraph_stack_init(s, capacity)
@@ -420,10 +428,11 @@ function igraph_stack_destroy(s)
     ccall((:igraph_stack_destroy, libigraph), Cvoid, (Ptr{igraph_stack_t},), s)
 end
 
-struct igraph_stack_int_t
+mutable struct igraph_stack_int_t
     stor_begin::Ptr{igraph_integer_t}
     stor_end::Ptr{igraph_integer_t}
     _end::Ptr{igraph_integer_t}
+    igraph_stack_int_t() = new()
 end
 
 function igraph_stack_int_init(s, capacity)
@@ -434,10 +443,11 @@ function igraph_stack_int_destroy(s)
     ccall((:igraph_stack_int_destroy, libigraph), Cvoid, (Ptr{igraph_stack_int_t},), s)
 end
 
-struct s_igraph_strvector
+mutable struct s_igraph_strvector
     stor_begin::Ptr{Ptr{Cchar}}
     stor_end::Ptr{Ptr{Cchar}}
     _end::Ptr{Ptr{Cchar}}
+    s_igraph_strvector() = new()
 end
 
 const igraph_strvector_t = s_igraph_strvector
@@ -454,10 +464,11 @@ function igraph_strvector_destroy(sv)
     ccall((:igraph_strvector_destroy, libigraph), Cvoid, (Ptr{igraph_strvector_t},), sv)
 end
 
-struct igraph_vector_list_t
+mutable struct igraph_vector_list_t
     stor_begin::Ptr{igraph_vector_t}
     stor_end::Ptr{igraph_vector_t}
     _end::Ptr{igraph_vector_t}
+    igraph_vector_list_t() = new()
 end
 
 function igraph_vector_list_init(v, size)
@@ -468,10 +479,11 @@ function igraph_vector_list_destroy(v)
     ccall((:igraph_vector_list_destroy, libigraph), Cvoid, (Ptr{igraph_vector_list_t},), v)
 end
 
-struct igraph_vector_int_list_t
+mutable struct igraph_vector_int_list_t
     stor_begin::Ptr{igraph_vector_int_t}
     stor_end::Ptr{igraph_vector_int_t}
     _end::Ptr{igraph_vector_int_t}
+    igraph_vector_int_list_t() = new()
 end
 
 function igraph_vector_int_list_init(v, size)
@@ -505,8 +517,7 @@ end
 
 mutable struct igraph_i_property_cache_t end
 
-# manually convert to mutable
-mutable struct igraph_s
+struct igraph_s
     n::igraph_integer_t
     directed::igraph_bool_t
     from::igraph_vector_int_t
@@ -517,16 +528,16 @@ mutable struct igraph_s
     is::igraph_vector_int_t
     attr::Ptr{Cvoid}
     cache::Ptr{igraph_i_property_cache_t}
-    igraph_s() = new() # manually provide an uninitilized constructor
 end
 
 const igraph_t = igraph_s
 
-struct igraph_graph_list_t
+mutable struct igraph_graph_list_t
     stor_begin::Ptr{igraph_t}
     stor_end::Ptr{igraph_t}
     _end::Ptr{igraph_t}
     directed::igraph_bool_t
+    igraph_graph_list_t() = new()
 end
 
 function igraph_graph_list_init(v, size)
@@ -556,10 +567,11 @@ function igraph_i_property_cache_get_bool(graph, prop)
     ccall((:igraph_i_property_cache_get_bool, libigraph), igraph_bool_t, (Ptr{igraph_t}, igraph_cached_property_t), graph, prop)
 end
 
-struct igraph_matrix_list_t
+mutable struct igraph_matrix_list_t
     stor_begin::Ptr{igraph_matrix_t}
     stor_end::Ptr{igraph_matrix_t}
     _end::Ptr{igraph_matrix_t}
+    igraph_matrix_list_t() = new()
 end
 
 function igraph_matrix_list_init(v, size)
@@ -856,35 +868,38 @@ end
     IGRAPH_MULTIPLE = 1
 end
 
-struct igraph_lazy_adjlist_t
+mutable struct igraph_lazy_adjlist_t
     graph::Ptr{igraph_t}
     length::igraph_integer_t
     adjs::Ptr{Ptr{igraph_vector_int_t}}
     mode::igraph_neimode_t
     loops::igraph_loops_t
     multiple::igraph_multiple_t
+    igraph_lazy_adjlist_t() = new()
 end
 
 function igraph_i_lazy_adjlist_get_real(al, no)
     ccall((:igraph_i_lazy_adjlist_get_real, libigraph), Ptr{igraph_vector_int_t}, (Ptr{igraph_lazy_adjlist_t}, igraph_integer_t), al, no)
 end
 
-struct igraph_lazy_inclist_t
+mutable struct igraph_lazy_inclist_t
     graph::Ptr{igraph_t}
     length::igraph_integer_t
     incs::Ptr{Ptr{igraph_vector_int_t}}
     mode::igraph_neimode_t
     loops::igraph_loops_t
+    igraph_lazy_inclist_t() = new()
 end
 
 function igraph_i_lazy_inclist_get_real(il, no)
     ccall((:igraph_i_lazy_inclist_get_real, libigraph), Ptr{igraph_vector_int_t}, (Ptr{igraph_lazy_inclist_t}, igraph_integer_t), il, no)
 end
 
-struct igraph_bitset_list_t
+mutable struct igraph_bitset_list_t
     stor_begin::Ptr{igraph_bitset_t}
     stor_end::Ptr{igraph_bitset_t}
     _end::Ptr{igraph_bitset_t}
+    igraph_bitset_list_t() = new()
 end
 
 function igraph_bitset_list_init(v, size)
@@ -930,10 +945,11 @@ function igraph_strerror(igraph_errno)
     ccall((:igraph_strerror, libigraph), Ptr{Cchar}, (igraph_error_t,), igraph_errno)
 end
 
-struct igraph_i_protectedPtr
+mutable struct igraph_i_protectedPtr
     level::Cint
     ptr::Ptr{Cvoid}
     func::Ptr{Cvoid}
+    igraph_i_protectedPtr() = new()
 end
 
 function IGRAPH_FINALLY_CLEAN(num)
@@ -4428,12 +4444,13 @@ function igraph_array3_update(to, from)
     ccall((:igraph_array3_update, libigraph), igraph_error_t, (Ptr{igraph_array3_t}, Ptr{igraph_array3_t}), to, from)
 end
 
-struct igraph_array3_int_t
+mutable struct igraph_array3_int_t
     data::igraph_vector_int_t
     n1::igraph_integer_t
     n2::igraph_integer_t
     n3::igraph_integer_t
     n1n2::igraph_integer_t
+    igraph_array3_int_t() = new()
 end
 
 function igraph_array3_int_init(a, n1, n2, n3)
@@ -4476,12 +4493,13 @@ function igraph_array3_int_update(to, from)
     ccall((:igraph_array3_int_update, libigraph), igraph_error_t, (Ptr{igraph_array3_int_t}, Ptr{igraph_array3_int_t}), to, from)
 end
 
-struct igraph_array3_char_t
+mutable struct igraph_array3_char_t
     data::igraph_vector_char_t
     n1::igraph_integer_t
     n2::igraph_integer_t
     n3::igraph_integer_t
     n1n2::igraph_integer_t
+    igraph_array3_char_t() = new()
 end
 
 function igraph_array3_char_init(a, n1, n2, n3)
@@ -4524,12 +4542,13 @@ function igraph_array3_char_update(to, from)
     ccall((:igraph_array3_char_update, libigraph), igraph_error_t, (Ptr{igraph_array3_char_t}, Ptr{igraph_array3_char_t}), to, from)
 end
 
-struct igraph_array3_bool_t
+mutable struct igraph_array3_bool_t
     data::igraph_vector_bool_t
     n1::igraph_integer_t
     n2::igraph_integer_t
     n3::igraph_integer_t
     n1n2::igraph_integer_t
+    igraph_array3_bool_t() = new()
 end
 
 function igraph_array3_bool_init(a, n1, n2, n3)
@@ -4716,11 +4735,12 @@ function igraph_dqueue_e(q, idx)
     ccall((:igraph_dqueue_e, libigraph), igraph_real_t, (Ptr{igraph_dqueue_t}, igraph_integer_t), q, idx)
 end
 
-struct igraph_dqueue_char_t
+mutable struct igraph_dqueue_char_t
     _begin::Ptr{Cchar}
     _end::Ptr{Cchar}
     stor_begin::Ptr{Cchar}
     stor_end::Ptr{Cchar}
+    igraph_dqueue_char_t() = new()
 end
 
 function igraph_dqueue_char_init(q, capacity)
@@ -4783,11 +4803,12 @@ function igraph_dqueue_char_e(q, idx)
     ccall((:igraph_dqueue_char_e, libigraph), Cchar, (Ptr{igraph_dqueue_char_t}, igraph_integer_t), q, idx)
 end
 
-struct igraph_dqueue_bool_t
+mutable struct igraph_dqueue_bool_t
     _begin::Ptr{igraph_bool_t}
     _end::Ptr{igraph_bool_t}
     stor_begin::Ptr{igraph_bool_t}
     stor_end::Ptr{igraph_bool_t}
+    igraph_dqueue_bool_t() = new()
 end
 
 function igraph_dqueue_bool_init(q, capacity)
@@ -4982,10 +5003,11 @@ function igraph_stack_int_fprint(s, file)
     ccall((:igraph_stack_int_fprint, libigraph), igraph_error_t, (Ptr{igraph_stack_int_t}, Ptr{Libc.FILE}), s, file)
 end
 
-struct igraph_stack_char_t
+mutable struct igraph_stack_char_t
     stor_begin::Ptr{Cchar}
     stor_end::Ptr{Cchar}
     _end::Ptr{Cchar}
+    igraph_stack_char_t() = new()
 end
 
 function igraph_stack_char_init(s, capacity)
@@ -5036,10 +5058,11 @@ function igraph_stack_char_fprint(s, file)
     ccall((:igraph_stack_char_fprint, libigraph), igraph_error_t, (Ptr{igraph_stack_char_t}, Ptr{Libc.FILE}), s, file)
 end
 
-struct igraph_stack_bool_t
+mutable struct igraph_stack_bool_t
     stor_begin::Ptr{igraph_bool_t}
     stor_end::Ptr{igraph_bool_t}
     _end::Ptr{igraph_bool_t}
+    igraph_stack_bool_t() = new()
 end
 
 function igraph_stack_bool_init(s, capacity)
@@ -5090,11 +5113,12 @@ function igraph_stack_bool_fprint(s, file)
     ccall((:igraph_stack_bool_fprint, libigraph), igraph_error_t, (Ptr{igraph_stack_bool_t}, Ptr{Libc.FILE}), s, file)
 end
 
-struct igraph_heap_t
+mutable struct igraph_heap_t
     stor_begin::Ptr{igraph_real_t}
     stor_end::Ptr{igraph_real_t}
     _end::Ptr{igraph_real_t}
     destroy::igraph_bool_t
+    igraph_heap_t() = new()
 end
 
 function igraph_heap_init(h, capacity)
@@ -5137,11 +5161,12 @@ function igraph_heap_reserve(h, capacity)
     ccall((:igraph_heap_reserve, libigraph), igraph_error_t, (Ptr{igraph_heap_t}, igraph_integer_t), h, capacity)
 end
 
-struct igraph_heap_min_t
+mutable struct igraph_heap_min_t
     stor_begin::Ptr{igraph_real_t}
     stor_end::Ptr{igraph_real_t}
     _end::Ptr{igraph_real_t}
     destroy::igraph_bool_t
+    igraph_heap_min_t() = new()
 end
 
 function igraph_heap_min_init(h, capacity)
@@ -5184,11 +5209,12 @@ function igraph_heap_min_reserve(h, capacity)
     ccall((:igraph_heap_min_reserve, libigraph), igraph_error_t, (Ptr{igraph_heap_min_t}, igraph_integer_t), h, capacity)
 end
 
-struct igraph_heap_int_t
+mutable struct igraph_heap_int_t
     stor_begin::Ptr{igraph_integer_t}
     stor_end::Ptr{igraph_integer_t}
     _end::Ptr{igraph_integer_t}
     destroy::igraph_bool_t
+    igraph_heap_int_t() = new()
 end
 
 function igraph_heap_int_init(h, capacity)
@@ -5231,11 +5257,12 @@ function igraph_heap_int_reserve(h, capacity)
     ccall((:igraph_heap_int_reserve, libigraph), igraph_error_t, (Ptr{igraph_heap_int_t}, igraph_integer_t), h, capacity)
 end
 
-struct igraph_heap_min_int_t
+mutable struct igraph_heap_min_int_t
     stor_begin::Ptr{igraph_integer_t}
     stor_end::Ptr{igraph_integer_t}
     _end::Ptr{igraph_integer_t}
     destroy::igraph_bool_t
+    igraph_heap_min_int_t() = new()
 end
 
 function igraph_heap_min_int_init(h, capacity)
@@ -5278,11 +5305,12 @@ function igraph_heap_min_int_reserve(h, capacity)
     ccall((:igraph_heap_min_int_reserve, libigraph), igraph_error_t, (Ptr{igraph_heap_min_int_t}, igraph_integer_t), h, capacity)
 end
 
-struct igraph_heap_char_t
+mutable struct igraph_heap_char_t
     stor_begin::Ptr{Cchar}
     stor_end::Ptr{Cchar}
     _end::Ptr{Cchar}
     destroy::igraph_bool_t
+    igraph_heap_char_t() = new()
 end
 
 function igraph_heap_char_init(h, capacity)
@@ -5325,11 +5353,12 @@ function igraph_heap_char_reserve(h, capacity)
     ccall((:igraph_heap_char_reserve, libigraph), igraph_error_t, (Ptr{igraph_heap_char_t}, igraph_integer_t), h, capacity)
 end
 
-struct igraph_heap_min_char_t
+mutable struct igraph_heap_min_char_t
     stor_begin::Ptr{Cchar}
     stor_end::Ptr{Cchar}
     _end::Ptr{Cchar}
     destroy::igraph_bool_t
+    igraph_heap_min_char_t() = new()
 end
 
 function igraph_heap_min_char_init(h, capacity)
@@ -5372,10 +5401,11 @@ function igraph_heap_min_char_reserve(h, capacity)
     ccall((:igraph_heap_min_char_reserve, libigraph), igraph_error_t, (Ptr{igraph_heap_min_char_t}, igraph_integer_t), h, capacity)
 end
 
-struct igraph_psumtree_t
+mutable struct igraph_psumtree_t
     v::igraph_vector_t
     size::igraph_integer_t
     offset::igraph_integer_t
+    igraph_psumtree_t() = new()
 end
 
 function igraph_psumtree_init(t, size)
@@ -5911,14 +5941,16 @@ end
 
 mutable struct cs_igraph_symbolic end
 
-struct igraph_sparsemat_symbolic_t
+mutable struct igraph_sparsemat_symbolic_t
     symbolic::Ptr{cs_igraph_symbolic}
+    igraph_sparsemat_symbolic_t() = new()
 end
 
 mutable struct cs_igraph_numeric end
 
-struct igraph_sparsemat_numeric_t
+mutable struct igraph_sparsemat_numeric_t
     numeric::Ptr{cs_igraph_numeric}
+    igraph_sparsemat_numeric_t() = new()
 end
 
 @cenum igraph_sparsemat_type_t::UInt32 begin
@@ -5926,10 +5958,11 @@ end
     IGRAPH_SPARSEMAT_CC = 1
 end
 
-struct igraph_sparsemat_iterator_t
+mutable struct igraph_sparsemat_iterator_t
     mat::Ptr{igraph_sparsemat_t}
     pos::igraph_integer_t
     col::igraph_integer_t
+    igraph_sparsemat_iterator_t() = new()
 end
 
 function igraph_sparsemat_init(A, rows, cols, nzmax)
@@ -6499,12 +6532,13 @@ end
     IGRAPH_VIT_VECTORPTR = 2
 end
 
-struct igraph_vit_t
+mutable struct igraph_vit_t
     type::igraph_vit_type_t
     pos::igraph_integer_t
     start::igraph_integer_t
     _end::igraph_integer_t
     vec::Ptr{igraph_vector_int_t}
+    igraph_vit_t() = new()
 end
 
 function igraph_vit_create(graph, vs, vit)
@@ -6613,12 +6647,13 @@ end
     IGRAPH_EIT_VECTORPTR = 2
 end
 
-struct igraph_eit_t
+mutable struct igraph_eit_t
     type::igraph_eit_type_t
     pos::igraph_integer_t
     start::igraph_integer_t
     _end::igraph_integer_t
     vec::Ptr{igraph_vector_int_t}
+    igraph_eit_t() = new()
 end
 
 function igraph_eit_create(graph, es, eit)
@@ -7800,7 +7835,7 @@ function igraph_subisomorphic_function_vf2(graph1, graph2, vertex_color1, vertex
     ccall((:igraph_subisomorphic_function_vf2, libigraph), igraph_error_t, (Ptr{igraph_t}, Ptr{igraph_t}, Ptr{igraph_vector_int_t}, Ptr{igraph_vector_int_t}, Ptr{igraph_vector_int_t}, Ptr{igraph_vector_int_t}, Ptr{igraph_vector_int_t}, Ptr{igraph_vector_int_t}, Ptr{igraph_isohandler_t}, Ptr{igraph_isocompat_t}, Ptr{igraph_isocompat_t}, Ptr{Cvoid}), graph1, graph2, vertex_color1, vertex_color2, edge_color1, edge_color2, map12, map21, isohandler_fn, node_compat_fn, edge_compat_fn, arg)
 end
 
-struct igraph_bliss_info_t
+mutable struct igraph_bliss_info_t
     nof_nodes::Culong
     nof_leaf_nodes::Culong
     nof_bad_nodes::Culong
@@ -7808,6 +7843,7 @@ struct igraph_bliss_info_t
     nof_generators::Culong
     max_level::Culong
     group_size::Ptr{Cchar}
+    igraph_bliss_info_t() = new()
 end
 
 @cenum igraph_bliss_sh_t::UInt32 begin
@@ -8066,7 +8102,7 @@ function igraph_layout_umap_compute_weights(graph, distances, weights)
     ccall((:igraph_layout_umap_compute_weights, libigraph), igraph_error_t, (Ptr{igraph_t}, Ptr{igraph_vector_t}, Ptr{igraph_vector_t}), graph, distances, weights)
 end
 
-struct igraph_layout_drl_options_t
+mutable struct igraph_layout_drl_options_t
     edge_cut::igraph_real_t
     init_iterations::igraph_integer_t
     init_temperature::igraph_real_t
@@ -8092,6 +8128,7 @@ struct igraph_layout_drl_options_t
     simmer_temperature::igraph_real_t
     simmer_attraction::igraph_real_t
     simmer_damping_mult::igraph_real_t
+    igraph_layout_drl_options_t() = new()
 end
 
 @cenum igraph_layout_drl_default_t::UInt32 begin
@@ -8264,10 +8301,11 @@ end
     IGRAPH_ATTRIBUTE_OBJECT = 127
 end
 
-struct igraph_attribute_record_t
+mutable struct igraph_attribute_record_t
     name::Ptr{Cchar}
     type::igraph_attribute_type_t
     value::Ptr{Cvoid}
+    igraph_attribute_record_t() = new()
 end
 
 @cenum igraph_attribute_elemtype_t::UInt32 begin
@@ -8295,14 +8333,16 @@ end
 # typedef void ( * igraph_function_pointer_t ) ( void )
 const igraph_function_pointer_t = Ptr{Cvoid}
 
-struct igraph_attribute_combination_record_t
+mutable struct igraph_attribute_combination_record_t
     name::Ptr{Cchar}
     type::igraph_attribute_combination_type_t
     func::igraph_function_pointer_t
+    igraph_attribute_combination_record_t() = new()
 end
 
-struct igraph_attribute_combination_t
+mutable struct igraph_attribute_combination_t
     list::igraph_vector_ptr_t
+    igraph_attribute_combination_t() = new()
 end
 
 function igraph_attribute_combination_init(comb)
@@ -8325,7 +8365,7 @@ function igraph_attribute_combination_query(comb, name, type, func)
     ccall((:igraph_attribute_combination_query, libigraph), igraph_error_t, (Ptr{igraph_attribute_combination_t}, Ptr{Cchar}, Ptr{igraph_attribute_combination_type_t}, Ptr{igraph_function_pointer_t}), comb, name, type, func)
 end
 
-struct igraph_attribute_table_t
+mutable struct igraph_attribute_table_t
     init::Ptr{Cvoid}
     destroy::Ptr{Cvoid}
     copy::Ptr{Cvoid}
@@ -8347,6 +8387,7 @@ struct igraph_attribute_table_t
     get_numeric_edge_attr::Ptr{Cvoid}
     get_string_edge_attr::Ptr{Cvoid}
     get_bool_edge_attr::Ptr{Cvoid}
+    igraph_attribute_table_t() = new()
 end
 
 function igraph_i_set_attribute_table(table)
@@ -8635,12 +8676,13 @@ function igraph_subgraph_edges(graph, res, eids, delete_vertices)
     ccall((:igraph_subgraph_edges, libigraph), igraph_error_t, (Ptr{igraph_t}, Ptr{igraph_t}, igraph_es_t, igraph_bool_t), graph, res, eids, delete_vertices)
 end
 
-struct igraph_maxflow_stats_t
+mutable struct igraph_maxflow_stats_t
     nopush::igraph_integer_t
     norelabel::igraph_integer_t
     nogap::igraph_integer_t
     nogapnodes::igraph_integer_t
     nobfs::igraph_integer_t
+    igraph_maxflow_stats_t() = new()
 end
 
 function igraph_maxflow(graph, value, flow, cut, partition, partition2, source, target, capacity, stats)
@@ -8733,13 +8775,14 @@ const igraph_scalar_function_t = Cvoid
 # typedef void igraph_vector_function_t ( const igraph_vector_t * var , const igraph_vector_t * par , igraph_vector_t * res , void * extra )
 const igraph_vector_function_t = Cvoid
 
-struct igraph_plfit_result_t
+mutable struct igraph_plfit_result_t
     continuous::igraph_bool_t
     alpha::igraph_real_t
     xmin::igraph_real_t
     L::igraph_real_t
     D::igraph_real_t
     data::Ptr{igraph_vector_t}
+    igraph_plfit_result_t() = new()
 end
 
 function igraph_running_mean(data, res, binwidth)
@@ -8810,14 +8853,16 @@ function igraph_similarity_inverse_log_weighted(graph, res, vids, mode)
     ccall((:igraph_similarity_inverse_log_weighted, libigraph), igraph_error_t, (Ptr{igraph_t}, Ptr{igraph_matrix_t}, igraph_vs_t, igraph_neimode_t), graph, res, vids, mode)
 end
 
-struct igraph_adjlist_t
+mutable struct igraph_adjlist_t
     length::igraph_integer_t
     adjs::Ptr{igraph_vector_int_t}
+    igraph_adjlist_t() = new()
 end
 
-struct igraph_inclist_t
+mutable struct igraph_inclist_t
     length::igraph_integer_t
     incs::Ptr{igraph_vector_int_t}
+    igraph_inclist_t() = new()
 end
 
 function igraph_adjlist_init(graph, al, mode, loops, multiple)
@@ -9088,12 +9133,13 @@ function igraph_eigen_adjacency(graph, algorithm, which, options, storage, value
     ccall((:igraph_eigen_adjacency, libigraph), igraph_error_t, (Ptr{igraph_t}, igraph_eigen_algorithm_t, Ptr{igraph_eigen_which_t}, Ptr{igraph_arpack_options_t}, Ptr{igraph_arpack_storage_t}, Ptr{igraph_vector_t}, Ptr{igraph_matrix_t}, Ptr{igraph_vector_complex_t}, Ptr{igraph_matrix_complex_t}), graph, algorithm, which, options, storage, values, vectors, cmplxvalues, cmplxvectors)
 end
 
-struct igraph_hrg_t
+mutable struct igraph_hrg_t
     left::igraph_vector_int_t
     right::igraph_vector_int_t
     prob::igraph_vector_t
     vertices::igraph_vector_int_t
     edges::igraph_vector_int_t
+    igraph_hrg_t() = new()
 end
 
 function igraph_hrg_init(hrg, n)
@@ -9234,11 +9280,12 @@ function igraph_graphlets(graph, weights, cliques, Mu, niter)
     ccall((:igraph_graphlets, libigraph), igraph_error_t, (Ptr{igraph_t}, Ptr{igraph_vector_t}, Ptr{igraph_vector_int_list_t}, Ptr{igraph_vector_t}, igraph_integer_t), graph, weights, cliques, Mu, niter)
 end
 
-struct igraph_sir_t
+mutable struct igraph_sir_t
     times::igraph_vector_t
     no_s::igraph_vector_int_t
     no_i::igraph_vector_int_t
     no_r::igraph_vector_int_t
+    igraph_sir_t() = new()
 end
 
 function igraph_sir_init(sir)
@@ -9429,35 +9476,41 @@ function igraph_transitive_closure(graph, closure)
     ccall((:igraph_transitive_closure, libigraph), igraph_error_t, (Ptr{igraph_t}, Ptr{igraph_t}), graph, closure)
 end
 
-struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:253:9)"
+mutable struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:253:9)"
     vid::igraph_integer_t
     mode::igraph_neimode_t
+    var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:253:9)"() = new()
 end
 
-struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:257:9)"
+mutable struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:257:9)"
     start::igraph_integer_t
     _end::igraph_integer_t
+    var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:257:9)"() = new()
 end
 
-struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:261:9)"
+mutable struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:261:9)"
     ptr::Ptr{igraph_vector_int_t}
     mode::igraph_bool_t
+    var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:261:9)"() = new()
 end
 
-struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:265:9)"
+mutable struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:265:9)"
     from::igraph_integer_t
     to::igraph_integer_t
     directed::igraph_bool_t
+    var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:265:9)"() = new()
 end
 
-struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:56:9)"
+mutable struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:56:9)"
     vid::igraph_integer_t
     mode::igraph_neimode_t
+    var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:56:9)"() = new()
 end
 
-struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:60:9)"
+mutable struct var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:60:9)"
     start::igraph_integer_t
     _end::igraph_integer_t
+    var"struct (unnamed at /home/stefan/.julia/artifacts/d7abc8767e8a099d5939fead030cd46916c2c387/include/igraph/igraph_iterators.h:60:9)"() = new()
 end
 
 # Skipping MacroDefinition: IGRAPH_FUNCATTR_PURE __attribute__ ( ( __pure__ ) )
@@ -9470,15 +9523,6 @@ end
 
 # Skipping MacroDefinition: IGRAPH_DEPRECATED __attribute__ ( ( __deprecated__ ) )
 
-# manually skipping
-#const IGRAPH_DEPRECATED_EXPORT = IGRAPH_EXPORT(IGRAPH_DEPRECATED)
-
-# manually skipping
-#const IGRAPH_DEPRECATED_NO_EXPORT = IGRAPH_NO_EXPORT(IGRAPH_DEPRECATED)
-
-# manually skipping
-#const IGRAPH_PRIVATE_EXPORT = IGRAPH_EXPORT
-
 const IGRAPH_VERSION = "0.10.15"
 
 const IGRAPH_VERSION_MAJOR = 0
@@ -9489,82 +9533,21 @@ const IGRAPH_VERSION_PATCH = 15
 
 const IGRAPH_VERSION_PRERELEASE = "cmake-experimental"
 
-# manually skipping
-#const igraph_Calloc = IGRAPH_CALLOC
-
-# manually skipping
-#const igraph_Realloc = IGRAPH_REALLOC
-
-# manually skipping
-#const igraph_Free = IGRAPH_FREE
-
 const IGRAPH_INTEGER_SIZE = 64
 
 # Skipping MacroDefinition: IGRAPH_DEPRECATED_ENUMVAL __attribute__ ( ( deprecated ) )
 
-# manually changed bool->Cuchar
-const IGRAPH_BOOL_TYPE = Cuchar
-
 # Skipping MacroDefinition: IGRAPH_FUNCATTR_NORETURN __attribute__ ( ( __noreturn__ ) )
-
-# manually skipping
-#const IGRAPH_FILE_BASENAME = __FILE__
 
 const IGRAPH_FINALLY_STACK_EMPTY = IGRAPH_FINALLY_STACK_SIZE() == 0
 
-# manually skipping
-#const GCC_VERSION_MAJOR = __GNUC__
-
-# manually skipping
-#const IGRAPH_PRId = PRId64
-
-# manually skipping
-#const IGRAPH_PRIu = PRIu64
-
-# manually changed
-const IGRAPH_INTEGER_MAX = typemax(Int64)
-
-# manually changed
-const IGRAPH_INTEGER_MIN = typemin(Int64)
-
-# manually changed
-const IGRAPH_UINT_MAX = typemax(UInt64)
-
-# manually changed
-const IGRAPH_UINT_MIN = typemin(UInt64)
-
-const IGRAPH_VCOUNT_MAX = IGRAPH_INTEGER_MAX - 1
-
-const IGRAPH_ECOUNT_MAX = IGRAPH_INTEGER_MAX ÷ 2
-
-# manually changed
-const IGRAPH_INFINITY = Float64(Inf)
-
-const IGRAPH_POSINFINITY = IGRAPH_INFINITY
-
-const IGRAPH_NEGINFINITY = -IGRAPH_INFINITY
-
-const IGRAPH_NAN = Float64(NaN)
-
 # Skipping MacroDefinition: CONCAT2x ( a , b ) a ## _ ## b
-
-# manually skipping
-#const CONCAT2 = (((a, b))(CONCAT2x))(a, b)
 
 # Skipping MacroDefinition: CONCAT3x ( a , b , c ) a ## _ ## b ## _ ## c
 
-# manually skipping
-#const CONCAT3 = (((a, b, c))(CONCAT3x))(a, b, c)
-
 # Skipping MacroDefinition: CONCAT4x ( a , b , c , d ) a ## _ ## b ## _ ## c ## _ ## d
 
-# manually skipping
-#const CONCAT4 = (((a, b, c, d))(CONCAT4x))(a, b, c, d)
-
 # Skipping MacroDefinition: CONCAT5x ( a , b , c , d , e ) a ## _ ## b ## _ ## c ## _ ## d ## _ ## e
-
-# manually skipping
-#const CONCAT5 = (((a, b, c, d, e))(CONCAT5x))(a, b, c, d, e)
 
 const BASE = igraph_real_t
 
@@ -9574,73 +9557,15 @@ const BASE_MATRIX = igraph_matrix_t
 
 const OUT_FORMAT = "%g"
 
-# manually skipping
-#const PRINTFUNC = (val(igraph_real_printf))(val)
-
-# manually skipping
-## manually skipping
-#const SNPRINTFUNC = (((str, size, val))(igraph_real_snprintf))(str, size, val)
-
-# manually skipping
-#const FPRINTFUNC_ALIGNED = (((file, width, val))(igraph_real_fprintf_aligned))(file, width, val)
-
-# manually skipping
-#const FPRINTFUNC = (((file, val))(igraph_real_fprintf))(file, val)
-
 const ZERO = 0.0
 
 const ONE = 1.0
 
 const MULTIPLICITY = 1
 
-# manually skipping
-#const FUNCTION = (((a, c))(CONCAT2))(a, c)
-
-# manually skipping
-#const TYPE = (a(CONCAT2))(a, t)
-
 const NOTORDERED = 1
 
 const NOABS = 1
-
-# manually skipping
-#const EQ = ((a, b))(a && b || !a && !b)
-
-# manually skipping
-#const SUM = ((a, b, c))(a = igraph_complex_add(b, c))
-
-# manually skipping
-#const DIFF = ((a, b, c))(a = igraph_complex_sub(b, c))
-
-# manually skipping
-#const PROD = ((a, b, c))(a = igraph_complex_mul(b, c))
-
-# manually skipping
-#const DIV = ((a, b, c))(a = igraph_complex_div(b, c))
-
-# manually skipping
-#const SQ = (a(IGRAPH_REAL))(igraph_complex_mul(a, a))
-
-# manually skipping
-#const IGRAPH_VECTOR_NULL = {0, 0, 0}
-
-# manually skipping
-#const IGRAPH_MATRIX_NULL = {IGRAPH_VECTOR_NULL, 0, 0}
-
-# manually skipping
-#const IGRAPH_POPCOUNT = IGRAPH_I_POPCOUNT64
-
-# manually skipping
-#const IGRAPH_CLZ = IGRAPH_I_CLZ64
-
-# manually skipping
-#const IGRAPH_CTZ = IGRAPH_I_CTZ64
-
-# manually skipping
-#const IGRAPH_DQUEUE_NULL = {0, 0, 0, 0}
-
-# manually skipping
-#const IGRAPH_STACK_NULL = {0, 0, 0}
 
 const HEAPMORE = (>)
 
@@ -9650,22 +9575,7 @@ const HEAPLESS = (<)
 
 const HEAPLESSEQ = (<=)
 
-# manually skipping
-#const IGRAPH_HEAP_NULL = {0, 0, 0}
-
-# manually skipping
-#const IGRAPH_STRVECTOR_NULL = {0, 0, 0}
-
-# manually skipping
-#const INTERNAL_FUNCTION = (c(CONCAT2x))(igraph_i_vector_list, c)
-
 const ITEM_TYPE = BASE_VECTOR
-
-# manually skipping
-#const IGRAPH_VECTOR_PTR_NULL = {0, 0, 0, 0}
-
-# manually skipping
-#const EXTRA_TYPE_FIELDS = $(Expr(:toplevel, :(igraph_bool_t(directed))))
 
 # Skipping MacroDefinition: IGRAPH_NO_MORE_ATTRIBUTES ( ( const char * ) 0 )
 
