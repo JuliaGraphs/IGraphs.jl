@@ -505,7 +505,8 @@ end
 
 mutable struct igraph_i_property_cache_t end
 
-struct igraph_s
+# manually convert to mutable
+mutable struct igraph_s
     n::igraph_integer_t
     directed::igraph_bool_t
     from::igraph_vector_int_t
@@ -516,6 +517,7 @@ struct igraph_s
     is::igraph_vector_int_t
     attr::Ptr{Cvoid}
     cache::Ptr{igraph_i_property_cache_t}
+    igraph_s() = new() # manually provide an uninitilized constructor
 end
 
 const igraph_t = igraph_s
@@ -9468,11 +9470,14 @@ end
 
 # Skipping MacroDefinition: IGRAPH_DEPRECATED __attribute__ ( ( __deprecated__ ) )
 
-const IGRAPH_DEPRECATED_EXPORT = IGRAPH_EXPORT(IGRAPH_DEPRECATED)
+# manually skipping
+#const IGRAPH_DEPRECATED_EXPORT = IGRAPH_EXPORT(IGRAPH_DEPRECATED)
 
-const IGRAPH_DEPRECATED_NO_EXPORT = IGRAPH_NO_EXPORT(IGRAPH_DEPRECATED)
+# manually skipping
+#const IGRAPH_DEPRECATED_NO_EXPORT = IGRAPH_NO_EXPORT(IGRAPH_DEPRECATED)
 
-const IGRAPH_PRIVATE_EXPORT = IGRAPH_EXPORT
+# manually skipping
+#const IGRAPH_PRIVATE_EXPORT = IGRAPH_EXPORT
 
 const IGRAPH_VERSION = "0.10.15"
 
@@ -9484,65 +9489,82 @@ const IGRAPH_VERSION_PATCH = 15
 
 const IGRAPH_VERSION_PRERELEASE = "cmake-experimental"
 
-const igraph_Calloc = IGRAPH_CALLOC
+# manually skipping
+#const igraph_Calloc = IGRAPH_CALLOC
 
-const igraph_Realloc = IGRAPH_REALLOC
+# manually skipping
+#const igraph_Realloc = IGRAPH_REALLOC
 
-const igraph_Free = IGRAPH_FREE
+# manually skipping
+#const igraph_Free = IGRAPH_FREE
 
 const IGRAPH_INTEGER_SIZE = 64
 
 # Skipping MacroDefinition: IGRAPH_DEPRECATED_ENUMVAL __attribute__ ( ( deprecated ) )
 
-const IGRAPH_BOOL_TYPE = bool
+# manually changed bool->Cuchar
+const IGRAPH_BOOL_TYPE = Cuchar
 
 # Skipping MacroDefinition: IGRAPH_FUNCATTR_NORETURN __attribute__ ( ( __noreturn__ ) )
 
-const IGRAPH_FILE_BASENAME = __FILE__
+# manually skipping
+#const IGRAPH_FILE_BASENAME = __FILE__
 
 const IGRAPH_FINALLY_STACK_EMPTY = IGRAPH_FINALLY_STACK_SIZE() == 0
 
-const GCC_VERSION_MAJOR = __GNUC__
+# manually skipping
+#const GCC_VERSION_MAJOR = __GNUC__
 
-const IGRAPH_PRId = PRId64
+# manually skipping
+#const IGRAPH_PRId = PRId64
 
-const IGRAPH_PRIu = PRIu64
+# manually skipping
+#const IGRAPH_PRIu = PRIu64
 
-const IGRAPH_INTEGER_MAX = INT64_MAX
+# manually changed
+const IGRAPH_INTEGER_MAX = typemax(Int64)
 
-const IGRAPH_INTEGER_MIN = INT64_MIN
+# manually changed
+const IGRAPH_INTEGER_MIN = typemin(Int64)
 
-const IGRAPH_UINT_MAX = UINT64_MAX
+# manually changed
+const IGRAPH_UINT_MAX = typemax(UInt64)
 
-const IGRAPH_UINT_MIN = UINT64_MIN
+# manually changed
+const IGRAPH_UINT_MIN = typemin(UInt64)
 
 const IGRAPH_VCOUNT_MAX = IGRAPH_INTEGER_MAX - 1
 
 const IGRAPH_ECOUNT_MAX = IGRAPH_INTEGER_MAX ÷ 2
 
-const IGRAPH_INFINITY = Float64(INFINITY)
+# manually changed
+const IGRAPH_INFINITY = Float64(Inf)
 
 const IGRAPH_POSINFINITY = IGRAPH_INFINITY
 
 const IGRAPH_NEGINFINITY = -IGRAPH_INFINITY
 
-const IGRAPH_NAN = Float64(NAN)
+const IGRAPH_NAN = Float64(NaN)
 
 # Skipping MacroDefinition: CONCAT2x ( a , b ) a ## _ ## b
 
-const CONCAT2 = (((a, b))(CONCAT2x))(a, b)
+# manually skipping
+#const CONCAT2 = (((a, b))(CONCAT2x))(a, b)
 
 # Skipping MacroDefinition: CONCAT3x ( a , b , c ) a ## _ ## b ## _ ## c
 
-const CONCAT3 = (((a, b, c))(CONCAT3x))(a, b, c)
+# manually skipping
+#const CONCAT3 = (((a, b, c))(CONCAT3x))(a, b, c)
 
 # Skipping MacroDefinition: CONCAT4x ( a , b , c , d ) a ## _ ## b ## _ ## c ## _ ## d
 
-const CONCAT4 = (((a, b, c, d))(CONCAT4x))(a, b, c, d)
+# manually skipping
+#const CONCAT4 = (((a, b, c, d))(CONCAT4x))(a, b, c, d)
 
 # Skipping MacroDefinition: CONCAT5x ( a , b , c , d , e ) a ## _ ## b ## _ ## c ## _ ## d ## _ ## e
 
-const CONCAT5 = (((a, b, c, d, e))(CONCAT5x))(a, b, c, d, e)
+# manually skipping
+#const CONCAT5 = (((a, b, c, d, e))(CONCAT5x))(a, b, c, d, e)
 
 const BASE = igraph_real_t
 
@@ -9552,13 +9574,18 @@ const BASE_MATRIX = igraph_matrix_t
 
 const OUT_FORMAT = "%g"
 
-const PRINTFUNC = (val(igraph_real_printf))(val)
+# manually skipping
+#const PRINTFUNC = (val(igraph_real_printf))(val)
 
-const SNPRINTFUNC = (((str, size, val))(igraph_real_snprintf))(str, size, val)
+# manually skipping
+## manually skipping
+#const SNPRINTFUNC = (((str, size, val))(igraph_real_snprintf))(str, size, val)
 
-const FPRINTFUNC_ALIGNED = (((file, width, val))(igraph_real_fprintf_aligned))(file, width, val)
+# manually skipping
+#const FPRINTFUNC_ALIGNED = (((file, width, val))(igraph_real_fprintf_aligned))(file, width, val)
 
-const FPRINTFUNC = (((file, val))(igraph_real_fprintf))(file, val)
+# manually skipping
+#const FPRINTFUNC = (((file, val))(igraph_real_fprintf))(file, val)
 
 const ZERO = 0.0
 
@@ -9566,39 +9593,54 @@ const ONE = 1.0
 
 const MULTIPLICITY = 1
 
-const FUNCTION = (((a, c))(CONCAT2))(a, c)
+# manually skipping
+#const FUNCTION = (((a, c))(CONCAT2))(a, c)
 
-const TYPE = (a(CONCAT2))(a, t)
+# manually skipping
+#const TYPE = (a(CONCAT2))(a, t)
 
 const NOTORDERED = 1
 
 const NOABS = 1
 
-const EQ = ((a, b))(a && b || !a && !b)
+# manually skipping
+#const EQ = ((a, b))(a && b || !a && !b)
 
-const SUM = ((a, b, c))(a = igraph_complex_add(b, c))
+# manually skipping
+#const SUM = ((a, b, c))(a = igraph_complex_add(b, c))
 
-const DIFF = ((a, b, c))(a = igraph_complex_sub(b, c))
+# manually skipping
+#const DIFF = ((a, b, c))(a = igraph_complex_sub(b, c))
 
-const PROD = ((a, b, c))(a = igraph_complex_mul(b, c))
+# manually skipping
+#const PROD = ((a, b, c))(a = igraph_complex_mul(b, c))
 
-const DIV = ((a, b, c))(a = igraph_complex_div(b, c))
+# manually skipping
+#const DIV = ((a, b, c))(a = igraph_complex_div(b, c))
 
-const SQ = (a(IGRAPH_REAL))(igraph_complex_mul(a, a))
+# manually skipping
+#const SQ = (a(IGRAPH_REAL))(igraph_complex_mul(a, a))
 
-const IGRAPH_VECTOR_NULL = {0, 0, 0}
+# manually skipping
+#const IGRAPH_VECTOR_NULL = {0, 0, 0}
 
-const IGRAPH_MATRIX_NULL = {IGRAPH_VECTOR_NULL, 0, 0}
+# manually skipping
+#const IGRAPH_MATRIX_NULL = {IGRAPH_VECTOR_NULL, 0, 0}
 
-const IGRAPH_POPCOUNT = IGRAPH_I_POPCOUNT64
+# manually skipping
+#const IGRAPH_POPCOUNT = IGRAPH_I_POPCOUNT64
 
-const IGRAPH_CLZ = IGRAPH_I_CLZ64
+# manually skipping
+#const IGRAPH_CLZ = IGRAPH_I_CLZ64
 
-const IGRAPH_CTZ = IGRAPH_I_CTZ64
+# manually skipping
+#const IGRAPH_CTZ = IGRAPH_I_CTZ64
 
-const IGRAPH_DQUEUE_NULL = {0, 0, 0, 0}
+# manually skipping
+#const IGRAPH_DQUEUE_NULL = {0, 0, 0, 0}
 
-const IGRAPH_STACK_NULL = {0, 0, 0}
+# manually skipping
+#const IGRAPH_STACK_NULL = {0, 0, 0}
 
 const HEAPMORE = (>)
 
@@ -9608,17 +9650,22 @@ const HEAPLESS = (<)
 
 const HEAPLESSEQ = (<=)
 
-const IGRAPH_HEAP_NULL = {0, 0, 0}
+# manually skipping
+#const IGRAPH_HEAP_NULL = {0, 0, 0}
 
-const IGRAPH_STRVECTOR_NULL = {0, 0, 0}
+# manually skipping
+#const IGRAPH_STRVECTOR_NULL = {0, 0, 0}
 
-const INTERNAL_FUNCTION = (c(CONCAT2x))(igraph_i_vector_list, c)
+# manually skipping
+#const INTERNAL_FUNCTION = (c(CONCAT2x))(igraph_i_vector_list, c)
 
 const ITEM_TYPE = BASE_VECTOR
 
-const IGRAPH_VECTOR_PTR_NULL = {0, 0, 0, 0}
+# manually skipping
+#const IGRAPH_VECTOR_PTR_NULL = {0, 0, 0, 0}
 
-const EXTRA_TYPE_FIELDS = $(Expr(:toplevel, :(igraph_bool_t(directed))))
+# manually skipping
+#const EXTRA_TYPE_FIELDS = $(Expr(:toplevel, :(igraph_bool_t(directed))))
 
 # Skipping MacroDefinition: IGRAPH_NO_MORE_ATTRIBUTES ( ( const char * ) 0 )
 
