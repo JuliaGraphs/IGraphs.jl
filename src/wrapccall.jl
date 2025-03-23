@@ -85,7 +85,9 @@ end
 
 function modifymodule(mod)
     module_entries = mod.args[3].args
-    module_entries .= modifybinding.(module_entries)
+    new_entries = Any[:(using IGraphs: last_thrown_error_ref)]
+    append!(new_entries, modifybinding.(module_entries))
+    mod.args[3].args = new_entries
     mod
 end
 
@@ -163,7 +165,10 @@ function convertedreturn(creturntype, args, csignature)
     ret = isempty(new_pointer_args) ? :(nothing) : :($(new_pointer_args...),)
     if creturntype == :igraph_error_t
         quote
-            res==0 || Base.error("igraph's C library reports error ", res)
+            if res!=0
+                throw(last_thrown_error_ref[])
+                last_thrown_error_ref[] = nothing
+            end
             return $ret
         end
     elseif creturntype == :Cvoid
