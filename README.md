@@ -4,17 +4,19 @@ A thin Julia wrapper around the C graphs library [`igraph`](https://igraph.org/)
 
 Most C types (like `igraph_vector_int_t`) are directly available in `IGraphs.LibIGraph` and also have Julian wrappers (like `IGVectorInt`).
 
-### Julian interfaces
+### High-level Julian interfaces
 
 The Julian `IGraph` wrapper of the C `igraph_t` follows the `Graphs.jl` interface.
 
 The other wrapper types (see listed below) do not implement any convenience interfaces yet (e.g. `IGVectorInt` does not provide any of the `Vector` interface).
 
+By default, all of these types are initialized, but empty. If you want to create unsafe uninitialized types (i.e. wrappers around uninitialized C structs) use `T(;_uninitialized=Var(true))` -- but be careful, uninitialized structs can cause segfaults on garbage collection.
+
 ### Conversions between Julia types from elsewhere in the ecosystem and IGraph Julian wrapper types
 
 A (currently slow) convertor between `Graphs.Graph` and `IGraphs.IGraph` is available (simply by calling the constructors of one type on instances of the other type).
 
-### Raw bindings
+### Raw C bindings
 
 The raw bindings for `igraph` are provided in `IGraphs.LibIGraph`. E.g. the following C function
 
@@ -32,7 +34,7 @@ function igraph_get_eid(graph, eid, from, to, directed, error)
 end
 ```
 
-### Julian bindings
+### Low-level Julian bindings
 
 For each C function `igraph_functionname` there is a higher-level Julian `functionname` (also in `IGraphs.LibIGraph`), but modified as follows:
 

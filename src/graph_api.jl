@@ -1,5 +1,5 @@
 function IGraph(n::Integer)
-    g = IGraph()
+    g = IGraph(_uninitialized=Val(true))
     LibIGraph.empty(g,n,false)
     return g
 end
@@ -30,7 +30,6 @@ function IGraph(g::Graphs.AbstractSimpleGraph)
     return ig
 end
 
-# TODO test a = random_regular_graph(5,4); Graph(IGraph(a))==a
 
 Base.eltype(::IGraph) = LibIGraph.igraph_integer_t
 Base.zero(::Type{IGraph}) = IGraph(0)

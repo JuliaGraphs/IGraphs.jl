@@ -2,7 +2,13 @@ module IGraphs
 
 import Graphs
 
-export LibIGraph, IGraph, IGraphException
+export LibIGraph, IGraph, IGraphException,
+    IGVectorInt, IGVectorFloat, IGVectorComplex, IGVectorBool, IGVectorChar,
+    IGMatrixInt, IGMatrixFloat, IGMatrixComplex, IGMatrixBool, IGMatrixChar,
+    IGBitSet,
+    #IGraphList,
+    IGVectorIntList, IGVectorFloatList, IGMatrixFloatList, IGBitSetList,
+    IGAdjList
 
 const last_thrown_error_ref = Ref{Any}() # TODO make this thread safe
 
