@@ -2,6 +2,7 @@
 
 import Graphs
 using IGraphs
+using Test
 
 for i in 1:100
     g = Graphs.random_regular_graph(10, 8)

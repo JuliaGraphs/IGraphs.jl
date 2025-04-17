@@ -7,6 +7,7 @@ using IGraphs
 rep = report_package("IGraphs";
     ignored_modules=(
         LastFrameModule(Base),
+        AnyFrameModule(IGraphs.LibIGraph)
     )
 )
 @show rep

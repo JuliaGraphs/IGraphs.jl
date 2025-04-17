@@ -1,6 +1,7 @@
 @testitem "Error handler" begin
-using Test
+
 using IGraphs
+using Test
 
 wrappers = values(IGraphs.wrappedtypes)
 

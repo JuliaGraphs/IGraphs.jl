@@ -1,6 +1,7 @@
 @testitem "Error handler" begin
-using Test
+
 using IGraphs
+using Test
 
 g = IGraph()
 LibIGraph.empty(g, 4, false)

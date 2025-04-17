@@ -16,8 +16,10 @@ include("wrapccall.jl")
 
 include(modifymodule, "LibIGraph.jl")
 
+include("scalar_types.jl")
 include("types.jl")
 include("graph_api.jl")
+include("array_api.jl")
 
 include("init.jl")
 
