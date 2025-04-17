@@ -52,6 +52,10 @@ function get_eid(graph, from, to, directed, error)
 end
 ```
 
+### Version number
+
+IGraphs.jl v`X.Y.Z` will always wrap a v`x.y.z` of the C library igraph where `X=x` and `Y=y`. `Z` and `z` might not match.
+
 ### Details and Wrapper stats
 
 ```julia-repl
