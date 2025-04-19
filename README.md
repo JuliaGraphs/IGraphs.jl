@@ -6,7 +6,7 @@ Most C types (like `igraph_vector_int_t`) are directly available in `IGraphs.Lib
 
 ### High-level Julian interfaces
 
-The Julian `IGraph` wrapper of the C `igraph_t` follows the `Graphs.jl` interface. Similarly the `IGVector*` which wrap `igraph_vector_*_t` follow the Julia array interface. Other Julian interfaces are not implemented yet.
+The Julian `IGraph` wrapper of the C `igraph_t` follows the `Graphs.jl` interface. Similarly the (`IGVector*` which wrap `igraph_vector_*_t`) and `IGMatrix*` (which wrap `igraph_matrix_*_t`) follow the Julia array interface. Other Julian interfaces are not implemented yet.
 
 By default, all of these types are initialized, but empty. If you want to create unsafe uninitialized types (i.e. wrappers around uninitialized C structs) use `T(;_uninitialized=Var(true))` -- but be careful, uninitialized structs can cause segfaults on garbage collection.
 
@@ -65,11 +65,11 @@ julia> IGraphs.allbindings |> length
 
 # how many functions are wrapped in a more Julian call interface and accessible through `LibIGraph.functionname`
 julia> IGraphs.translatedbindings |> length
-1181
+1243
 
 # the difference between those two numbers
 julia> IGraphs.untranslatedbindings |> length
-876
+814
 
 # the number of C types with Julian wrappers
 julia> IGraphs.wrappedtypes |> length

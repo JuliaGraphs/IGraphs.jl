@@ -20,10 +20,31 @@ function initializer(ctype)
     end
 end
 
+const vtypes = [
+    (:IGVectorInt, LibIGraph.igraph_integer_t, "_int"),
+    (:IGVectorFloat, LibIGraph.igraph_real_t, ""),
+    (:IGVectorComplex, Complex{LibIGraph.igraph_real_t}, "_complex"),
+    (:IGVectorBool, LibIGraph.igraph_bool_t, "_bool"),
+    (:IGVectorChar, Cchar, "_char")
+]
+const mtypes = [
+    (:IGMatrixInt, LibIGraph.igraph_integer_t, "_int"),
+    (:IGMatrixFloat, LibIGraph.igraph_real_t, ""),
+    (:IGMatrixComplex, Complex{LibIGraph.igraph_real_t}, "_complex"),
+    (:IGMatrixBool, LibIGraph.igraph_bool_t, "_bool"),
+    (:IGMatrixChar, Cchar, "_char")
+]
+
+const parent_types = Dict(
+    [jtype=>:(AbstractVector{$eltype}) for (jtype, eltype, _) in vtypes]...,
+    [jtype=>:(AbstractMatrix{$eltype}) for (jtype, eltype, _) in mtypes]...
+)
+
 for (ptr_ctype, jtype) in pairs(wrappedtypes)
     ctype = ptr_ctype.args[2]
+    ptype = get(parent_types, jtype, Any)
     expr = quote
-        struct $jtype
+        struct $jtype <: $ptype
             objref::Ref{LibIGraph.$ctype}
         end
         function $jtype(;_uninitialized::Val{B}=Val(false)) where {B}
@@ -38,6 +59,5 @@ for (ptr_ctype, jtype) in pairs(wrappedtypes)
             return $jtype(cinstance)
         end
     end
-    #println(expr)
     eval(expr)
 end

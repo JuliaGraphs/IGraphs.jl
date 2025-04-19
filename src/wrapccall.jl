@@ -92,7 +92,7 @@ function modifymodule(mod)
 end
 
 const nativetypes = Set([ # cenums are elsewhere, because we are dynamically gathering them (and because we want to exclude them from nativepointertypes)
-    :igraph_integer_t, :igraph_bool_t, :igraph_real_t, :igraph_complex_t
+    :igraph_integer_t, :igraph_bool_t, :igraph_real_t, :igraph_complex_t, :Cchar
 ])
 const nativepointertypes = Set([:(Ptr{$t}) for t in nativetypes])
 const wrappedtypes = Dict(
@@ -152,7 +152,7 @@ const returntypes = Dict(
     :igraph_real_t => :Float64,
     :igraph_complex_t => :ComplexF64,
     :Cint => :Int,
-    :Cchar => :Char,
+    :Cchar => :Cchar,
 )
 allreturntypes = union(Set([:igraph_error_t,:Cvoid]), keys(returntypes))
 
