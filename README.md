@@ -2,7 +2,7 @@ A thin Julia wrapper around the C graphs library [`igraph`](https://igraph.org/)
 
 ### Wrapper types
 
-Most C types (like `igraph_vector_int_t`) are directly available in `IGraphs.LibIGraph` and also have Julian wrappers (like `IGVectorInt`).
+Most C types (like `igraph_vector_int_t`) are directly available in `IGraphs.LibIGraph` and also have Julian wrappers (like `IGVectorInt`). There is also `IGNull` as a convenient placeholder for whenever the `igraph` C function expects a `NULL` argument.
 
 ### High-level Julian interfaces
 

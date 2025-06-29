@@ -61,3 +61,11 @@ for (ptr_ctype, jtype) in pairs(wrappedtypes)
     end
     eval(expr)
 end
+
+"""Convenient wrapper for `C_NULL` to be used when `LibIGraph` functions need a `NULL` argument."""
+struct IGNull
+    objref
+    function IGNull()
+        return new(C_NULL)
+    end
+end

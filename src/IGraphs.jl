@@ -8,7 +8,8 @@ export LibIGraph, IGraph, IGraphException,
     IGBitSet,
     #IGraphList,
     IGVectorIntList, IGVectorFloatList, IGMatrixFloatList, IGBitSetList,
-    IGAdjList
+    IGAdjList,
+    IGNull
 
 const last_thrown_error_ref = Ref{Any}() # TODO make this thread safe
 
