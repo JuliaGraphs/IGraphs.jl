@@ -10,6 +10,21 @@ The Julian `IGraph` wrapper of the C `igraph_t` follows the `Graphs.jl` interfac
 
 By default, all of these types are initialized, but empty. If you want to create unsafe uninitialized types (i.e. wrappers around uninitialized C structs) use `T(;_uninitialized=Var(true))` -- but be careful, uninitialized structs can cause segfaults on garbage collection.
 
+### Alternatives to Graphs.jl algorithms
+
+Some Graphs.jl functions have new methods defined here, which provide an alternative implementation for the given algorithm. E.g. `Graphs.diameter(graph)` runs a Julia-native implementation of that algorithm from `Graphs.jl`. Here we add the method `diamater(graph, ::IGraphAlg)` which converts `graph` to an `IGraph` type and runs the corresponding algorithm from the `igraph` C library.
+
+Dispatch to these new methods happens by adding an instance of the `IGraphAlg` type.
+
+To see all such methods, use 
+```julia-repl
+julia> igraphalg_methods()
+3-element Vector{Symbol}:
+ :diameter
+ :has_isomorph
+ :radius
+```
+
 ### Conversions between Julia types from elsewhere in the ecosystem and IGraph Julian wrapper types
 
 A (currently slow) convertor between `Graphs.Graph` and `IGraphs.IGraph` is available (simply by calling the constructors of one type on instances of the other type).

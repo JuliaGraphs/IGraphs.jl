@@ -9,7 +9,9 @@ export LibIGraph, IGraph, IGraphException,
     #IGraphList,
     IGVectorIntList, IGVectorFloatList, IGMatrixFloatList, IGBitSetList,
     IGAdjList,
-    IGNull
+    IGNull,
+    IGraphAlg,
+    igraphalg_methods
 
 const last_thrown_error_ref = Ref{Any}() # TODO make this thread safe
 
@@ -23,6 +25,8 @@ include("graph_api.jl")
 include("array_api.jl")
 
 include("init.jl")
+
+include("graph_api_extensions.jl")
 
 end
 

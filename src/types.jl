@@ -36,6 +36,7 @@ const mtypes = [
 ]
 
 const parent_types = Dict(
+    :IGraph=>:(Graphs.AbstractGraph{Int}),
     [jtype=>:(AbstractVector{$eltype}) for (jtype, eltype, _) in vtypes]...,
     [jtype=>:(AbstractMatrix{$eltype}) for (jtype, eltype, _) in mtypes]...
 )

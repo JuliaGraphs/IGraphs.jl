@@ -165,7 +165,7 @@ function convertedreturn(creturntype, args, csignature)
     ret = isempty(new_pointer_args) ? :(nothing) : :($(new_pointer_args...),)
     if creturntype == :igraph_error_t
         quote
-            if res!=0
+            if _jlwrap_res!=0
                 throw(last_thrown_error_ref[])
                 last_thrown_error_ref[] = nothing
             end
@@ -174,9 +174,9 @@ function convertedreturn(creturntype, args, csignature)
     elseif creturntype == :Cvoid
         :(return $ret)
     elseif haskey(returntypes, creturntype)
-        :(return $(returntypes[creturntype])(res))
+        :(return $(returntypes[creturntype])(_jlwrap_res))
     else
-        :(return res)
+        :(return _jlwrap_res)
     end
 end
 
@@ -208,7 +208,7 @@ function wrapccall(binding_func)
         wrapper = quote
             function $(wrapper_name)($(in_args...))
                 $(new_pointer_args...)
-                res =
+                _jlwrap_res =
                 #GC.@preserve $(args...) begin
                     $(name)($(passed_args...))
                 #end
