@@ -27,7 +27,8 @@ include("array_api.jl")
 include("init.jl")
 
 include("graph_api_extensions.jl")
-
+# High-level Graphs.jl compatibility layer
+include("GraphsCompat/GraphsCompat.jl")
 end
 
 ##

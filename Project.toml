@@ -13,3 +13,11 @@ CEnum = "0.5.0"
 Graphs = "1.12.0"
 igraph_jll = "0.10.15"
 julia = "1.10"
+
+[extras]
+Graphs = "86223c79-3864-5bf0-83f7-82e725a168b6"
+GraphsMatching = "addd7e06-0d5f-4b57-9f8b-3d2a9c7f2b8f"
+GraphsOptim = "3aafca61-9286-4a0d-9a3a-3b0f1f4b4b4a"
+
+[targets]
+test = ["Graphs", "GraphsMatching", "GraphsOptim"]
