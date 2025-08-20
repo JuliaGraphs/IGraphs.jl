@@ -27,6 +27,8 @@ include("array_api.jl")
 include("init.jl")
 
 include("graph_api_extensions.jl")
+include("igraph_shims.jl")
+#include("gaps_from_headers.jl")
 
 end
 
