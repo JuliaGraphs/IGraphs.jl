@@ -9,17 +9,20 @@ IGraphs.jl is a thin Julia wrapper around the C graphs library [`igraph`](https:
 - **Low-level Julian bindings**: Higher-level wrappers with error handling and type conversions
 
 ### Version Compatibility
+
 IGraphs.jl v`X.Y.Z` wraps igraph C library v`x.y.z` where `X=x` and `Y=y`. The patch versions `Z` and `z` might not match.
 
 ## Development Commands
 
 ### Instantiate Environment
+
 ```bash
 # Package
 julia --project=. -e "using Pkg; Pkg.instantiate()"
 ```
 
 ### Running Tests
+
 ```bash
 # Run default tests
 julia --project=. -e "using Pkg; Pkg.test()"
@@ -28,6 +31,7 @@ julia --project=. -e "using Pkg; Pkg.test()"
 Do not try to run single test files.
 
 ### Package Management
+
 ```bash
 # Instantiate project dependencies
 julia --project=. -e "using Pkg; Pkg.instantiate()"
@@ -44,6 +48,7 @@ Do not read the Manifest.jl files -- they are machine generated and should not b
 ## Code Formatting
 
 ### Removing Trailing Whitespaces
+
 Before committing, ensure there are no trailing whitespaces in Julia files:
 
 ```bash
@@ -52,6 +57,7 @@ find . -type f -name '*.jl' -exec sed --in-place 's/[[:space:]]\+$//' {} \+
 ```
 
 ### Ensuring Files End with Newlines
+
 Ensure all Julia files end with a newline to avoid misbehaving CLI tools:
 
 ```bash
@@ -60,6 +66,7 @@ find . -type f -name '*.jl' -exec sed -i '$a\' {} \+
 ```
 
 ### General Formatting Guidelines
+
 - Use 4 spaces for indentation (no tabs)
 - Remove trailing whitespaces from all lines
 - Ensure files end with a single newline
