@@ -26,7 +26,7 @@ for (VT, ET, suffix) in vtypes
             end
             return vout
         end
-        Vector(v::$VT) = v[begin:end]::Vector{$ET}
+        Base.Vector(v::$VT) = v[begin:end]::Vector{$ET}
     end
     eval(api)
 end
@@ -60,7 +60,7 @@ for (MT, ET, suffix) in mtypes
             end
             return mout
         end
-        Matrix(m::$MT) = m[begin:end, begin:end]::Matrix{$ET}
+        Base.Matrix(m::$MT) = m[begin:end, begin:end]::Matrix{$ET}
     end
     eval(api)
 end
