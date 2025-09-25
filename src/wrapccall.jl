@@ -92,7 +92,7 @@ function modifymodule(mod)
 end
 
 const nativetypes = Set([ # cenums are elsewhere, because we are dynamically gathering them (and because we want to exclude them from nativepointertypes)
-    :igraph_integer_t, :igraph_bool_t, :igraph_real_t, :igraph_complex_t, :Cchar
+    :igraph_int_t, :igraph_bool_t, :igraph_real_t, :igraph_complex_t, :Cchar
 ])
 const nativepointertypes = Set([:(Ptr{$t}) for t in nativetypes])
 const wrappedtypes = Dict(
@@ -148,7 +148,7 @@ end
 
 const returntypes = Dict(
     :igraph_bool_t => :Bool,
-    :igraph_integer_t => :Int,
+    :igraph_int_t => :Int,
     :igraph_real_t => :Float64,
     :igraph_complex_t => :ComplexF64,
     :Cint => :Int,
@@ -196,10 +196,12 @@ function wrapccall(binding_func)
     csignature = theccall.args[4]
     #return csignature.args
     #return creturntype
-    #if name == :igraph_vector_complex_push_back
+    #if name == :igraph_vector_complex_get
     #    @show name
     #    @show all(x->x∈permittedtypes || x∈cenums, csignature.args)
     #    @show !isempty(csignature.args) && creturntype ∈ allreturntypes
+    #    @show csignature.args
+    #    @show creturntype
     #end
     if all(x->x∈permittedtypes || x∈cenums, csignature.args) && !isempty(csignature.args) && creturntype ∈ allreturntypes
         push!(translatedbindings, wrapper_name)
@@ -215,7 +217,7 @@ function wrapccall(binding_func)
                 $(new_return)
             end
         end
-        #if name==:igraph_get_eid
+        #if name==:igraph_vector_complex_get
         #    println(wrapper)
         #end
         return wrapper

@@ -21,11 +21,11 @@ function igraphalg_methods()
 end
 
 function diameter(g, ::IGraphAlg)
-    return LibIGraph.diameter(IGraph(g), IGNull(), IGNull(), false, false)[1]
+    return LibIGraph.diameter(IGraph(g), IGNull(), IGNull(), IGNull(), false, false)[1]
 end
 
 function radius(g, ::IGraphAlg)
-    return LibIGraph.radius(IGraph(g), LibIGraph.IGRAPH_ALL)[1]
+    return LibIGraph.radius(IGraph(g), IGNull(), LibIGraph.IGRAPH_ALL)[1]
 end
 
 function has_isomorph(g1, g2, ::IGraphAlg)
