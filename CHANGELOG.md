@@ -1,5 +1,9 @@
 # News
 
+## v1.0.0 - 2025-09-25
+
+- Update the underlying igraph C library to v1.0.0.
+
 ## v0.10.18 - 2025-06-30
 
 - `IGraphAlg` introduced as a generic dispatch argument for `Graphs.jl` functions extended with implementations from `igraph`.
