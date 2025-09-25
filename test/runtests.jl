@@ -1,6 +1,9 @@
 using IGraphs
 using TestItemRunner
 
+
+include("interface.jl")  # NEW
+
 # filter for the test
 testfilter = ti -> begin
   exclude = Symbol[]
