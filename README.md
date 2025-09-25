@@ -16,7 +16,7 @@ Some Graphs.jl functions have new methods defined here, which provide an alterna
 
 Dispatch to these new methods happens by adding an instance of the `IGraphAlg` type.
 
-To see all such methods, use 
+To see all such methods, use
 ```julia-repl
 julia> igraphalg_methods()
 3-element Vector{Symbol}:
@@ -34,8 +34,8 @@ A (currently slow) convertor between `Graphs.Graph` and `IGraphs.IGraph` is avai
 The raw bindings for `igraph` are provided in `IGraphs.LibIGraph`. E.g. the following C function
 
 ```c
-igraph_error_t igraph_get_eid(const igraph_t *graph, igraph_integer_t *eid,
-                   igraph_integer_t from, igraph_integer_t to,
+igraph_error_t igraph_get_eid(const igraph_t *graph, igraph_int_t *eid,
+                   igraph_int_t from, igraph_int_t to,
                    igraph_bool_t directed, igraph_bool_t error);
 ```
 
@@ -43,7 +43,7 @@ is available as the following Julia call
 
 ```julia
 function igraph_get_eid(graph, eid, from, to, directed, error)
-    ccall((:igraph_get_eid, libigraph), igraph_error_t, (Ptr{igraph_t}, Ptr{igraph_integer_t}, igraph_integer_t, igraph_integer_t, igraph_bool_t, igraph_bool_t), graph, eid, from, to, directed, error)
+    ccall((:igraph_get_eid, libigraph), igraph_error_t, (Ptr{igraph_t}, Ptr{igraph_int_t}, igraph_int_t, igraph_int_t, igraph_bool_t, igraph_bool_t), graph, eid, from, to, directed, error)
 end
 ```
 
@@ -60,8 +60,8 @@ E.g. the C `igraph_get_eid` from above becomes
 
 ```julia
 function get_eid(graph, from, to, directed, error)
-    eid = fill(igraph_integer_t(0), ())
-    res = igraph_get_eid(graph.objref, pointer(eid), igraph_integer_t(from), igraph_integer_t(to), igraph_bool_t(directed), igraph_bool_t(error))
+    eid = fill(igraph_int_t(0), ())
+    res = igraph_get_eid(graph.objref, pointer(eid), igraph_int_t(from), igraph_int_t(to), igraph_bool_t(directed), igraph_bool_t(error))
     res == 0 || error("igraph's C library reports error ", res)
     return (Int(eid[]),)
 end
@@ -76,15 +76,15 @@ IGraphs.jl v`X.Y.Z` will always wrap a v`x.y.z` of the C library igraph where `X
 ```julia-repl
 # how many functions exist in the C library that are now accessible through `LibIGraph.igraph_functionname`
 julia> IGraphs.allbindings |> length
-2057
+1994
 
 # how many functions are wrapped in a more Julian call interface and accessible through `LibIGraph.functionname`
 julia> IGraphs.translatedbindings |> length
-1243
+1203
 
 # the difference between those two numbers
 julia> IGraphs.untranslatedbindings |> length
-814
+791
 
 # the number of C types with Julian wrappers
 julia> IGraphs.wrappedtypes |> length

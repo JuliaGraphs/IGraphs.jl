@@ -27,8 +27,8 @@ end
     edge_weights = IGVectorFloat(ones(ne(ig)))
     node_weights = IGVectorFloat(ones(nv(ig)))
 
-    res = LibIGraph.community_leiden(ig, edge_weights, node_weights, 0.05, 0.01, 0, 1, membership)
-    res_null = LibIGraph.community_leiden(ig, IGNull(), IGNull(), 0.05, 0.01, 0, 1, membership_null)
+    res = LibIGraph.community_leiden(ig, edge_weights, node_weights, IGNull(), 0.05, 0.01, 0, 1, membership)
+    res_null = LibIGraph.community_leiden(ig, IGNull(), IGNull(), IGNull(), 0.05, 0.01, 0, 1, membership_null)
     @test membership == membership_null
     @test res == res_null
 end

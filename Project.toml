@@ -1,7 +1,7 @@
 name = "IGraphs"
 uuid = "647e90d3-2106-487c-adb4-c91fc07b96ea"
 authors = ["Stefan Krastanov <stefan@krastanov.org>"]
-version = "0.10.18"
+version = "1.0.0"
 
 [deps]
 CEnum = "fa961155-64e5-5f13-b03f-caf6b980ea82"
@@ -11,5 +11,5 @@ igraph_jll = "4d841945-e0c2-5143-9479-18e4f0102556"
 [compat]
 CEnum = "0.5.0"
 Graphs = "1.12.0"
-igraph_jll = "0.10.15"
+igraph_jll = "1.0.0"
 julia = "1.10"

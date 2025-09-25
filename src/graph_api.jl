@@ -31,7 +31,7 @@ function IGraph(g::Graphs.AbstractSimpleGraph)
 end
 
 
-Base.eltype(::IGraph) = LibIGraph.igraph_integer_t
+Base.eltype(::IGraph) = LibIGraph.igraph_int_t
 Base.zero(::Type{IGraph}) = IGraph(0)
 # Graphs.edges # TODO
 Graphs.edgetype(g::IGraph) = Graphs.SimpleGraphs.SimpleEdge{eltype(g)} # TODO maybe expose the edge id information from IGraph
