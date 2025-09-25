@@ -21,14 +21,14 @@ function initializer(ctype)
 end
 
 const vtypes = [
-    (:IGVectorInt, LibIGraph.igraph_integer_t, "_int"),
+    (:IGVectorInt, LibIGraph.igraph_int_t, "_int"),
     (:IGVectorFloat, LibIGraph.igraph_real_t, ""),
     (:IGVectorComplex, Complex{LibIGraph.igraph_real_t}, "_complex"),
     (:IGVectorBool, LibIGraph.igraph_bool_t, "_bool"),
     (:IGVectorChar, Cchar, "_char")
 ]
 const mtypes = [
-    (:IGMatrixInt, LibIGraph.igraph_integer_t, "_int"),
+    (:IGMatrixInt, LibIGraph.igraph_int_t, "_int"),
     (:IGMatrixFloat, LibIGraph.igraph_real_t, ""),
     (:IGMatrixComplex, Complex{LibIGraph.igraph_real_t}, "_complex"),
     (:IGMatrixBool, LibIGraph.igraph_bool_t, "_bool"),
