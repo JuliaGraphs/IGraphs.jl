@@ -34,6 +34,21 @@ end
 Base.eltype(::IGraph) = LibIGraph.igraph_int_t
 Base.zero(::Type{IGraph}) = IGraph(0)
 # Graphs.edges # TODO
+function Graphs.edges(g::IGraph)
+    edge_list = Vector{Graphs.edgetype(g)}()
+    adjlist = IGAdjList()
+    LibIGraph.adjlist_init(g,adjlist,LibIGraph.IGRAPH_ALL,LibIGraph.IGRAPH_LOOPS_TWICE,LibIGraph.IGRAPH_MULTIPLE)
+    for i in Graphs.vertices(g)
+        neigh = IGVectorInt(Ref(unsafe_load(adjlist.objref[].adjs,i)))
+        for k in 1:LibIGraph.vector_int_size(neigh)
+            j = LibIGraph.vector_int_get(neigh,k-1)+1
+            if i < j
+                push!(edge_list,Graphs.SimpleGraphs.SimpleEdge(i,j))
+            end
+        end
+    end
+    return edge_list
+end
 Graphs.edgetype(g::IGraph) = Graphs.SimpleGraphs.SimpleEdge{eltype(g)} # TODO maybe expose the edge id information from IGraph
 Graphs.has_edge(g::IGraph,s,d) = LibIGraph.get_eid(g,s,d,false,false)[1]!=-1
 Graphs.has_vertex(g::IGraph,n::Integer) = 1≤n≤Graphs.nv(g)
