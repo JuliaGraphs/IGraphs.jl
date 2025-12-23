@@ -65,3 +65,27 @@ output_ignorelist = [
 #"igraph_warning_handler_print",
 #"igraph_progress_handler_stderr",
 #"igraph_status_handler_stderr",
+
+[codegen.macro]
+# it's highly recommended to set this entry to "basic".
+# if you'd like to skip all of the macros, please set this entry to "disable".
+# if you'd like to translate function-like macros to Julia, please set this entry to "aggressive".
+macro_mode = "basic"
+
+# function-like macros in the following list will always be translated.
+functionlike_macro_includelist = [
+    "IGRAPH_EIT_END",
+    "IGRAPH_EIT_GET",
+    "IGRAPH_EIT_GET"
+]
+
+# if true, the generator prints the following message as comments.
+# "# Skipping MacroDefinition: ..."
+add_comment_for_skipped_macro = true
+
+# if true, ignore any macros that is suffixed with "_H" or in the `ignore_header_guards_with_suffixes` list
+ignore_header_guards = true
+ignore_header_guards_with_suffixes = []
+
+# if true, ignore those pure definition macros in the C code
+ignore_pure_definition = true
