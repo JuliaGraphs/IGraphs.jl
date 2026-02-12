@@ -1,5 +1,11 @@
 # News
 
+## Unreleased
+
+- Complete `Graphs.jl` `AbstractGraph` interface for `IGraph`: `edges`, `outneighbors`/`inneighbors`, `add_vertex!`, `rem_vertex!`, `copy`.
+- Fix 0-indexing bug in `has_edge` (was passing 1-based indices to 0-based C API).
+- Add `GraphsInterfaceChecker.jl` compliance tests.
+
 ## v1.0.0 - 2025-09-25
 
 - Update the underlying igraph C library to v1.0.0.
