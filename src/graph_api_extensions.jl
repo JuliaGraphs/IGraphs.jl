@@ -15,7 +15,8 @@ function igraphalg_methods()
         f = getproperty(@__MODULE__, s)
         f isa Function || return false
         any(methods(f)) do m
-            IGraphAlg ∈ m.sig.parameters
+            sig = m.sig isa UnionAll ? m.sig.body : m.sig
+            any(t -> t isa Type && t <: IGraphAlg, sig.parameters)
         end
     end
 end
