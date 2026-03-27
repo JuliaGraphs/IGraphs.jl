@@ -11,8 +11,7 @@
     @test Interfaces.test(AbstractGraphInterface, IGraph, [g])
 
     # Directed graph test
-    dg = IGraph(5)
-    LibIGraph.empty(dg, 5, true) # Directed
+    dg = IGraph(5, true)
     Graphs.add_edge!(dg, 1, 2)
     Graphs.add_edge!(dg, 2, 3)
     @test Graphs.is_directed(dg)

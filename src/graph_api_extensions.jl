@@ -3,15 +3,13 @@
 # so that `igraphalg_methods` can pick them up.
 import Graphs: diameter, radius, pagerank, betweenness_centrality,
     core_number, closeness_centrality, eigenvector_centrality, modularity,
-    connected_components, strongly_connected_components,
-    community_leiden, modularity_matrix, layout_kamada_kawai, layout_fruchterman_reingold, sir_model
+    connected_components, strongly_connected_components
 import Graphs.Experimental
 import Graphs.Experimental: has_isomorph
 
 export diameter, radius, has_isomorph, pagerank, betweenness_centrality,
     core_number, closeness_centrality, eigenvector_centrality, modularity,
-    connected_components, strongly_connected_components,
-    community_leiden, modularity_matrix, layout_kamada_kawai, layout_fruchterman_reingold, sir_model
+    connected_components, strongly_connected_components
 
 struct IGraphAlg end
 
@@ -131,6 +129,7 @@ function strongly_connected_components(g::Graphs.AbstractGraph, ::IGraphAlg)
     return comps
 end
 
+#=
 function community_leiden(g::IGraph; resolution=1.0, beta=0.01)
     membership = IGVectorInt()
     nb_clusters, quality = LibIGraph.community_leiden_simple(g, IGNull(), LibIGraph.IGRAPH_LEIDEN_OBJECTIVE_MODULARITY, resolution, beta, false, 2, membership)
@@ -214,3 +213,4 @@ end
 function sir_model(g::Graphs.AbstractGraph, beta, gamma, ::IGraphAlg; kwargs...)
     return sir_model(IGraph(g), beta, gamma; kwargs...)
 end
+=#
