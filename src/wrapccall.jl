@@ -113,6 +113,7 @@ const wrappedtypes = Dict(
     :(Ptr{igraph_vector_list_t})=>:IGVectorFloatList,
     :(Ptr{igraph_matrix_list_t})=>:IGMatrixFloatList,
     :(Ptr{igraph_bitset_list_t})=>:IGBitSetList,
+    :(Ptr{igraph_vector_ptr_t})=>:IGVectorPtr,
     :(Ptr{igraph_adjlist_t})=>:IGAdjList,
 )
 const permittedinputtypes = nativetypes ∪ keys(wrappedtypes)
