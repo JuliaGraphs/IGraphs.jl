@@ -2,11 +2,11 @@
 
 using Test
 using IGraphs
-using Pkg
 
 # JET is not compatible with all Julia versions (e.g., Julia 1.13-beta).
 # Install it conditionally and skip if unavailable.
 jet_available = try
+    import Pkg
     Pkg.add("JET")
     @eval using JET
     true
