@@ -8,7 +8,12 @@
     Graphs.add_edge!(g, 1, 2)
     Graphs.add_edge!(g, 2, 3)
 
-    # Broken because `is_directed(typeof(g))` cannot know directedness
-    # without `IGraph` being a parametric type `IGraph{Directed}`.
-    @test_broken Interfaces.test(AbstractGraphInterface, IGraph, [g])
+    @test Interfaces.test(AbstractGraphInterface, IGraph, [g])
+
+    # Directed graph test
+    dg = IGraph(5, true)
+    Graphs.add_edge!(dg, 1, 2)
+    Graphs.add_edge!(dg, 2, 3)
+    @test Graphs.is_directed(dg)
+    @test Interfaces.test(AbstractGraphInterface, IGraph, [dg])
 end
