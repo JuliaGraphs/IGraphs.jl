@@ -1,0 +1,7 @@
+[default.extend-words]
+# igraph C library identifiers
+neis = "neis"
+eid = "eid"
+
+[files]
+extend-exclude = ["src/LibIGraph.jl"]
