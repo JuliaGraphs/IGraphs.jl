@@ -1,12 +1,9 @@
 # News
 
-## v1.1.0 - 2026-03-27
+## v1.1.0 (Unreleased)
 
-- Refactored `IGraph` into a parametric type `IGraph{Directed}` to ensure `is_directed(typeof(g)) == is_directed(g)`.
-- Full compliance with `Graphs.jl`'s `AbstractGraph` interface, verified via `GraphsInterfaceChecker.jl`.
-- Fixed `MethodError` in `connected_components` and `strongly_connected_components` by using correct `LibIGraph` enums.
-- Added `IGVectorPtr` support for low-level C bindings.
-- Improved internal constructor to handle uninitialized state more robustly.
+- Maintenance and CI scaffolding improvements.
+
 
 ## v1.0.0 - 2025-09-25
 
