@@ -1,5 +1,9 @@
 # News
 
+## Unreleased
+
+- Add `IGraphAlg` dispatch for `connected_components`, `is_connected`, `articulation`, and `bridges`.
+
 ## v1.0.0 - 2025-09-25
 
 - Update the underlying igraph C library to v1.0.0.
