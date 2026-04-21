@@ -12,7 +12,8 @@ By default, all of these types are initialized, but empty. If you want to create
 
 ### Alternatives to Graphs.jl algorithms
 
-Some Graphs.jl functions have new methods defined here, which provide an alternative implementation for the given algorithm. E.g. `Graphs.diameter(graph)` runs a Julia-native implementation of that algorithm from `Graphs.jl`. Here we add the method `diamater(graph, ::IGraphAlg)` which converts `graph` to an `IGraph` type and runs the corresponding algorithm from the `igraph` C library.
+Some Graphs.jl functions have new methods defined here, which provide an alternative implementation for the given algorithm. E.g. `Graphs.diameter(graph)` runs a Julia-native implementation of that algorithm from `Graphs.jl`. Here we add the method `diameter(graph, ::IGraphAlg)` which converts `graph` to an `IGraph` type and runs the corresponding algorithm from the `igraph` C library.
+
 
 Dispatch to these new methods happens by adding an instance of the `IGraphAlg` type.
 

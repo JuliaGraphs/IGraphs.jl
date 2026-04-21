@@ -9,6 +9,8 @@ function initializer(ctype)
         :(LibIGraph.$(Symbol(sname[1:end-1],"init"))(cinstance, 0))
     elseif startswith(sname, "igraph_adjlist")
         :(LibIGraph.$(Symbol(sname[1:end-1],"init_empty"))(cinstance, 0))
+    elseif startswith(sname, "igraph_vector_ptr")
+        :(LibIGraph.$(Symbol(sname[1:end-1],"init"))(cinstance, 0))
     elseif startswith(sname, "igraph_vector")
         :(LibIGraph.$(Symbol(sname[1:end-1],"init"))(cinstance, 0))
     elseif startswith(sname, "igraph_matrix")
@@ -44,20 +46,39 @@ const parent_types = Dict(
 for (ptr_ctype, jtype) in pairs(wrappedtypes)
     ctype = ptr_ctype.args[2]
     ptype = get(parent_types, jtype, Any)
-    expr = quote
-        struct $jtype <: $ptype
-            objref::Ref{LibIGraph.$ctype}
+    if jtype == :IGraph
+        expr = quote
+            struct $jtype{Directed} <: $ptype
+                objref::Ref{LibIGraph.$ctype}
+            end
+            function $jtype(;_uninitialized::Val{B}=Val(false), directed::Bool=false) where {B}
+                cinstance = Ref{LibIGraph.$ctype}()
+                finalizer(cinstance) do cinstance
+                    LibIGraph.$(Symbol(string(ctype)[1:end-1],"destroy"))(cinstance)
+                    cinstance
+                end
+                if !B
+                    LibIGraph.igraph_empty(cinstance, 0, directed)
+                end
+                return $jtype{directed}(cinstance)
+            end
         end
-        function $jtype(;_uninitialized::Val{B}=Val(false)) where {B}
-            cinstance = Ref{LibIGraph.$ctype}()
-            finalizer(cinstance) do cinstance
-                LibIGraph.$(Symbol(string(ctype)[1:end-1],"destroy"))(cinstance)
-                cinstance
+    else
+        expr = quote
+            struct $jtype <: $ptype
+                objref::Ref{LibIGraph.$ctype}
             end
-            if !B
-                $(initializer(ctype))
+            function $jtype(;_uninitialized::Val{B}=Val(false)) where {B}
+                cinstance = Ref{LibIGraph.$ctype}()
+                finalizer(cinstance) do cinstance
+                    LibIGraph.$(Symbol(string(ctype)[1:end-1],"destroy"))(cinstance)
+                    cinstance
+                end
+                if !B
+                    $(initializer(ctype))
+                end
+                return $jtype(cinstance)
             end
-            return $jtype(cinstance)
         end
     end
     eval(expr)
