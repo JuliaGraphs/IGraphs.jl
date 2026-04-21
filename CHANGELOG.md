@@ -1,5 +1,13 @@
 # News
 
+## v1.1.0 - 2026-03-27
+
+- Refactored `IGraph` into a parametric type `IGraph{Directed}` to ensure `is_directed(typeof(g)) == is_directed(g)`.
+- Full compliance with `Graphs.jl`'s `AbstractGraph` interface, verified via `GraphsInterfaceChecker.jl`.
+- Fixed `MethodError` in `connected_components` and `strongly_connected_components` by using correct `LibIGraph` enums.
+- Added `IGVectorPtr` support for low-level C bindings.
+- Improved internal constructor to handle uninitialized state more robustly.
+
 ## v1.0.0 - 2025-09-25
 
 - Update the underlying igraph C library to v1.0.0.
@@ -12,7 +20,8 @@
 
 ## v0.10.17 - 2025-06-29
 
-- `IGNull` is introduced as a convenient placehold argument for when the low-level C function expects a `NULL` as a default.
+- `IGNull` is introduced as a convenient placeholder argument for when the low-level C function expects a `NULL` as a default.
+
 
 ## v0.10.16 - 2025-04-21
 
