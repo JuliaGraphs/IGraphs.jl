@@ -8,6 +8,7 @@ export LibIGraph, IGraph, IGraphException,
     IGBitSet,
     #IGraphList,
     IGVectorIntList, IGVectorFloatList, IGMatrixFloatList, IGBitSetList,
+    IGVectorPtr,
     IGAdjList,
     IGNull,
     IGraphAlg,
@@ -18,6 +19,7 @@ const last_thrown_error_ref = Ref{Any}() # TODO make this thread safe
 include("wrapccall.jl")
 
 include(modifymodule, "LibIGraph.jl")
+
 
 include("scalar_types.jl")
 include("types.jl")
