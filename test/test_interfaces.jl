@@ -1,4 +1,4 @@
-# test/interface.jl
+# test/test_interfaces.jl
 
 @testitem "GraphsInterfaceChecker" begin
 
