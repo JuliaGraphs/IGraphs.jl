@@ -39,6 +39,12 @@ jobs:
           channel: ${{ matrix.version }}~${{ matrix.arch }}
       - uses: julia-actions/cache@v3
       - uses: julia-actions/julia-buildpkg@v1
+      - name: Add JET to test environment
+        if: ${{ matrix.jet == 'true' }}
+        run: |
+          julia --project=test -e 'using Pkg;
+            Pkg.add([Pkg.PackageSpec(name="JET"), Pkg.PackageSpec(name="LoweredCodeUtils")]);
+            Pkg.compat("LoweredCodeUtils", "=3.5.0")'
       - uses: julia-actions/julia-runtest@v1
         env:
           JULIA_NUM_THREADS: ${{ matrix.threads }}

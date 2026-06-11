@@ -21,17 +21,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version:
-          - '1'
-        os:
-          - ubuntu-latest
-          - windows-latest
-          - macos-latest
-        threads:
-          - '2'
-        arch:
-          - x64
         include:
+          - os: ubuntu-latest
+            arch: x64
+            version: '1'
+            threads: '2'
+          - os: windows-latest
+            arch: x64
+            version: '1'
+            threads: '2'
+          - os: macos-13
+            arch: x64
+            version: '1'
+            threads: '2'
           - arch: aarch64
             os: macos-latest
             version: '1'
@@ -52,18 +54,3 @@ jobs:
         with:
           file: lcov.info
           token: ${{ secrets.CODECOV_TOKEN }}
-  docs:
-    name: Documentation
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: julia-actions/setup-julia@v3
-        with:
-          version: '1'
-      - uses: julia-actions/cache@v3
-      - uses: julia-actions/julia-buildpkg@v1
-      - uses: julia-actions/julia-docdeploy@v1
-        env:
-          GKSwstype: nul # Fix for Plots with GR backend.
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}

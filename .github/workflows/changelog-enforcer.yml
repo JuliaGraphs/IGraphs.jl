@@ -6,10 +6,14 @@ on:
     # This is needed to allow skipping enforcement of the changelog in PRs with specific labels,
     # as defined in the (optional) "skipLabels" property.
     types: [opened, synchronize, reopened, ready_for_review, labeled, unlabeled]
+    paths-ignore:
+      - '.github/**'
 
 jobs:
-  # Enforces the update of a changelog file on every pull request 
+  # Enforces the update of a changelog file on every pull request
   changelog:
     runs-on: ubuntu-latest
     steps:
-    - uses: dangoslen/changelog-enforcer@v3
+      - uses: dangoslen/changelog-enforcer@v3.7.0
+        with:
+          skipLabels: Skip-Changelog, dependencies
