@@ -30,7 +30,7 @@ jobs:
             arch: x64
             version: '1'
             threads: '2'
-          - os: macos-13
+          - os: macos-15-intel
             arch: x64
             version: '1'
             threads: '2'
