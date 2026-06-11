@@ -1,4 +1,13 @@
 using IGraphs
+import Pkg
+
+if get(ENV, "JET_TEST", "") == "true"
+    Pkg.add([
+        Pkg.PackageSpec(name="JET"),
+        Pkg.PackageSpec(name="LoweredCodeUtils", version="3.5.0"),
+    ])
+end
+
 using TestItemRunner
 
 # filter for the test
