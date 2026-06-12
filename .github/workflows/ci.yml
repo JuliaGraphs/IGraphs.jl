@@ -26,7 +26,6 @@ jobs:
         os:
           - ubuntu-latest
           - windows-latest
-          - macos-latest
         threads:
           - '2'
         arch:
