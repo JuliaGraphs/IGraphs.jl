@@ -1,5 +1,9 @@
 # News
 
+## unreleased
+
+- `has_edge` now uses igraph's zero-based vertex indexing, and returns `false` for a vertex outside the graph instead of raising
+
 ## v1.0.0 - 2025-09-25
 
 - Update the underlying igraph C library to v1.0.0.

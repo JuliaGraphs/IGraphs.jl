@@ -11,6 +11,7 @@ for i in 1:100
     @test g2 == g
 
     @test LibIGraph.radius(ig,IGNull(),LibIGraph.IGRAPH_ALL)[1] == Graphs.radius(g) == Graphs.radius(g2)
+    @test all(Graphs.has_edge(ig,s,d) == Graphs.has_edge(g,s,d) for s in 1:10, d in 1:10)
 end
 
 end
