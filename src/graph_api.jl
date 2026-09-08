@@ -35,7 +35,8 @@ Base.eltype(::IGraph) = LibIGraph.igraph_int_t
 Base.zero(::Type{IGraph}) = IGraph(0)
 # Graphs.edges # TODO
 Graphs.edgetype(g::IGraph) = Graphs.SimpleGraphs.SimpleEdge{eltype(g)} # TODO maybe expose the edge id information from IGraph
-Graphs.has_edge(g::IGraph,s,d) = LibIGraph.get_eid(g,s,d,false,false)[1]!=-1
+Graphs.has_edge(g::IGraph,s,d) =
+    Graphs.has_vertex(g,s) && Graphs.has_vertex(g,d) && LibIGraph.get_eid(g,s-1,d-1,false,false)[1]!=-1
 Graphs.has_vertex(g::IGraph,n::Integer) = 1≤n≤Graphs.nv(g)
 # Graphs.inneighbors # TODO
 Graphs.is_directed(::Type{IGraph}) = false # TODO support directed graphs
