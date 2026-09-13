@@ -18,6 +18,18 @@ using Test
     @test collect(v) == [0,2,1,0,1]
 end
 
+@testset "has_edge" begin
+    g = IGraph(Graphs.path_graph(4))
+    @test Graphs.has_edge(g, 3, 4)
+    @test Graphs.has_edge(g, 4, 3)
+    @test !Graphs.has_edge(g, 1, 3)
+    @test Graphs.has_edge(g, 1, 2) isa Bool
+    @test Graphs.has_edge(g, Graphs.SimpleEdge(3, 4))
+    for (s, d) in ((0, 1), (1, 0), (1, 5), (5, 1), (0, 0), (1, 100))
+        @test !Graphs.has_edge(g, s, d)
+    end
+end
+
 @testset "NULL input arguments" begin
     g = Graphs.smallgraph(:karate)
     ig = IGraph(g)
